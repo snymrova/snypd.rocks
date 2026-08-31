@@ -1,0 +1,8 @@
+# Cloudflare Pages. `snypd build` writes dist/; Pages serves it. Nothing here talks to an API —
+# snypd writes files and git, and the host builds on push (docs/07 §3b).
+name = "snypd-rocks"
+compatibility_date = "2026-08-31"
+pages_build_output_dir = "dist"
+
+[build]
+command = "npx -y @snypd/cli@0.1.2 build"

@@ -1,0 +1,16 @@
+name: snypd
+on: { pull_request: {}, push: { branches: [main] } }
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      # Rules 0–11: a broken link, a moved URL with no redirect, a chart that will not render.
+      - run: npx -y @snypd/cli@0.1.2 lint
+      # The build the host will run, run here first — a red PR instead of a red deploy.
+      - run: npx -y @snypd/cli@0.1.2 build
+      # Report-only: budgets are snypd's to enforce, not a content repo's to fail on.
+      - run: npx -y @snypd/cli@0.1.2 bench --quick
+        continue-on-error: true
