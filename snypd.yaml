@@ -1,0 +1,10 @@
+# snypd.rocks — the whole site config. Every key not named here comes from @snypd/spec;
+# `snypd://config` is the merged result with a comment saying where each value came from.
+snypd: 1
+
+site:
+  name: "snypd.rocks"
+  url: "http://localhost:4321"   # placeholder — the feed, sitemap and JSON-LD are absolute, so publishing needs the real one
+
+theme:
+  use: editorial

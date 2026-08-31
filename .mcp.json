@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "snypd": {
+      "command": "bunx",
+      "args": [
+        "@snypd/cli",
+        "serve"
+      ]
+    }
+  }
+}
