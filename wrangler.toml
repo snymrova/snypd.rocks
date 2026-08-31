@@ -1,8 +1,10 @@
-# Cloudflare Pages. `snypd build` writes dist/; Pages serves it. Nothing here talks to an API —
-# snypd writes files and git, and the host builds on push (docs/07 §3b).
+# Cloudflare Workers, serving static assets. `snypd build` writes dist/; `wrangler deploy` uploads it.
+# Nothing here talks to an API — snypd writes files and git, and the host builds on push (docs/07 §3b).
+#
+# The build command, for the dashboard's "Build command" field (Workers Builds runs it before deploy):
+#     npx -y @snypd/cli@0.1.2 build
 name = "snypd-rocks"
 compatibility_date = "2026-08-31"
-pages_build_output_dir = "dist"
 
-[build]
-command = "npx -y @snypd/cli@0.1.2 build"
+[assets]
+directory = "./dist"
