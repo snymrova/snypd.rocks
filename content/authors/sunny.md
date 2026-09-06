@@ -1,6 +1,6 @@
 ---
 name: Sunny Luthra
-status: draft
+status: published
 url: https://github.com/snymrova
 ---
 
