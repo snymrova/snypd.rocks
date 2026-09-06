@@ -18,8 +18,8 @@ Principle nine of the design set is four words: measure or don't claim. Every pe
 That sounds like discipline and is mostly plumbing. The bench is one CLI verb, one MCP tool and one CI step. Budgets live in the site config next to everything else, so a site can tighten them. And the report is written for reading: every row has a value, a budget, a status and a note that says what the number is and, when it matters, what it is not.
 
 :::stat-row
-::stat{value="43" label="rows in the bench of record" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
-::stat{value="22" label="of them gated: a breach fails the build" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
+::stat{value="48" label="rows in the bench of record" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
+::stat{value="29" label="of them gated: a breach fails the build" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
 ::stat{value="80 %" label="of each published budget is the line CI enforces" source="https://github.com/snymrova/snypd/blob/main/docs/07-delivery-plan.md"}
 ::stat{value="0" label="gated rows over budget today" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
 :::
@@ -38,9 +38,11 @@ There is a fourth thing that is not a suite. Headless Chrome opens six routes of
 
 A green tick says a number is under budget. It does not say by how much, and the interesting information is in the margin. This is every gated clock and token count from the current bench of record, as a share of its budget.
 
-:::chart{type="bar" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md" caption="Each gated measurement as a percentage of its published budget. Under 80 is what CI requires. The two agent-cost rows near the top are the tight ones, and they are tight on purpose." unit="%"}
+:::chart{type="bar" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md" caption="Each gated measurement as a percentage of its published budget, largest first. Under 80 is what CI requires. The two agent-cost rows at the top are the tight ones, and they are tight on purpose." unit="%"}
 - { label: "tokens to learn the site", value: 75 }
 - { label: "tokens for the tool list", value: 74 }
+- { label: "chart SVG bytes", value: 63 }
+- { label: "flow SVG bytes", value: 58 }
 - { label: "MCP cold start, binary", value: 45 }
 - { label: "tokens per page, twin", value: 20 }
 - { label: "cold build, 100 posts", value: 15 }
@@ -48,8 +50,6 @@ A green tick says a number is under budget. It does not say by how much, and the
 - { label: "cold build, 10,000 posts", value: 14 }
 - { label: "lint, 1,000 posts", value: 7 }
 - { label: "diagram render", value: 6 }
-- { label: "chart SVG bytes", value: 63 }
-- { label: "flow SVG bytes", value: 58 }
 - { label: "incremental build", value: 3 }
 :::
 
