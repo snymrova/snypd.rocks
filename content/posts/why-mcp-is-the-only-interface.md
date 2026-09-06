@@ -1,7 +1,7 @@
 ---
 title: Why MCP is the only interface
 date: 2026-09-06
-status: draft
+status: published
 description: "Snypd has no dashboard on purpose: what a CMS looks like when the only way in is your harness, what it costs an agent per turn, and what a human keeps."
 author: sunny
 category: building-in-public
