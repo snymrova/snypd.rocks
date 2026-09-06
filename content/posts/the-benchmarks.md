@@ -66,17 +66,17 @@ So the rule now is that a number is only a number when CI produced it. A GitHub 
 :::flow{caption="How a measurement becomes a claim. The file the bench writes is the same file a stat on this site links to."}
 steps:
   - A push runs snypd bench in CI, on a runner, not a laptop
-  - ask: Every gated row at or under 80 percent of its budget?
+  - ask: Every gated row under 80 percent?
     no:
       - The build fails and the row names the breach
       - { then: fix }
     yes: { then: record }
   - id: fix
-    do: Fix the regression, or amend the budget with the reason written down
+    do: Fix it, or amend the budget and say why
   - id: record
     do: The report is committed as the bench of record
   - It is served as an MCP resource any agent can read
-  - A stat or a chart on this site links to that row as its source
+  - A stat on this site links to that row
 :::
 
 ## What is not measured yet
