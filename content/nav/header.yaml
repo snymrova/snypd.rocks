@@ -1,0 +1,6 @@
+# The header menu (docs/09 §4.3). `ref` is a route or type/slug, resolved at build; `url` is verbatim.
+- { label: "Posts", ref: "/" }
+- { label: "Why MCP", ref: "post/why-mcp-is-the-only-interface" }
+- { label: "Blocks", ref: "post/thirteen-blocks" }
+- { label: "Benchmarks", ref: "post/the-benchmarks" }
+- { label: "GitHub", url: "https://github.com/snymrova/snypd", rel: "external" }
