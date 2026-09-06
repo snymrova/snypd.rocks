@@ -2,7 +2,7 @@
 title: "Thirteen blocks: the vocabulary an agent writes in"
 date: 2026-09-06
 status: draft
-description: Snypd posts are prose plus thirteen typed blocks, declared in YAML and rendered at build time. Why the vocabulary is closed, what each block costs, and what lint refuses.
+description: A snypd post is prose plus thirteen typed blocks, declared in YAML and rendered at build time. Why the vocabulary is closed, and what lint refuses.
 author: sunny
 category: building-in-public
 ---
