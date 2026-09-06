@@ -40,7 +40,7 @@ nodes:
   - { id: harness, label: Claude Code / Cursor / Codex, kind: pill }
   - { id: resources, label: "resources: config, spec, theme, lint, bench" }
   - { id: tools, label: "tools: create, update, lint, publish, push" }
-  - { id: git, label: git repo, drafts branch and main }
+  - { id: git, label: "git repo: a drafts branch and main" }
   - { id: dev, label: "snypd dev: the page a person looks at" }
   - { id: host, label: the host builds main, kind: pill }
 edges:
@@ -78,7 +78,7 @@ So five sessions ago the gate moved from the code to the config. By default an a
 :::flow{caption="Where a person can stand. Both refusals are one line of YAML away, and neither is on by default."}
 steps:
   - Agent writes a draft on the drafts branch
-  - ask: "types.post.mcp.write is draft?"
+  - ask: "mcp.write is draft?"
     yes:
       - Person reads it on the review page and approves that hash
       - { then: publish }
