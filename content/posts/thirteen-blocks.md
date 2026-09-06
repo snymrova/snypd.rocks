@@ -59,20 +59,20 @@ The limits are chosen so a reader can still read the result. A chart stops at tw
 
 ## What lint refuses
 
-An agent writing in a vocabulary needs to be told when it is wrong, in the same turn, in a form it can act on. Every write returns the lint for the file it just wrote, and every diagnostic carries a rule number, a severity and a fix hint. The twelve rules, in order:
+An agent writing in a vocabulary needs to be told when it is wrong, in the same turn, in a form it can act on. Every write returns the lint for the file it just wrote, and every diagnostic carries a rule number, a severity and a fix hint. The twelve rules, numbered as the code numbers them:
 
-0. Frontmatter: required fields, unknown fields, types, a valid status.
-1. A block that is not in the vocabulary.
-2. A block missing a required prop, or carrying an unknown one, or overfilling a slot.
-3. A `stat` or a `chart` with no checkable source. A number whose origin cannot be clicked is an opinion.
-4. An image with no alt text.
-5. An internal link that resolves to no route.
-6. A heading skip, or an `h1` in the body.
-7. An `updated` date earlier than the post's date, or an update note with no date.
-8. A phrase from the slop list, matched on prose only.
-9. More than three callouts per thousand words.
-10. A slug that changed with nothing redirecting the old URL.
-11. A tag no other post uses.
+- **0** Frontmatter: required fields, unknown fields, types, a valid status.
+- **1** A block that is not in the vocabulary.
+- **2** A block missing a required prop, or carrying an unknown one, or overfilling a slot.
+- **3** A `stat` or a `chart` with no checkable source. A number whose origin cannot be clicked is an opinion.
+- **4** An image with no alt text.
+- **5** An internal link that resolves to no route.
+- **6** A heading skip, or an `h1` in the body.
+- **7** An `updated` date earlier than the post's date, or an update note with no date.
+- **8** A phrase from the slop list, matched on prose only.
+- **9** More than three callouts per thousand words.
+- **10** A slug that changed with nothing redirecting the old URL.
+- **11** A tag no other post uses.
 
 The last two can only be seen across the whole site, which is why there is a site-wide lint next to the one a write returns. Rules three and four are the ones that make the difference between content an agent wrote and content an agent wrote well: the source and the alt text are required by the schema, so there is no version of a chart or an image that lint lets through without them.
 
