@@ -17,13 +17,13 @@ Snypd is an open-source CMS with no dashboard. There is no admin tab, no login, 
 
 Content is markdown plus YAML in a git repo you own. There is no content database: SQLite is a disposable index that can be deleted at any time and rebuilt from the files. The site builds to static HTML with zero client JavaScript, and every page ships with a markdown twin, so the next agent that reads your site pays for the words and not for the markup.
 
-:::diagram{direction="lr" caption="One MCP server in front of a git repo; one build behind it that emits both the human page and the agent surface."}
+:::diagram{direction="tb" caption="One MCP server in front of a git repo; one build behind it that emits both the human page and the agent surface."}
 nodes:
   - { id: harness, label: Your harness, kind: pill }
   - { id: mcp, label: snypd serve (MCP) }
   - { id: repo, label: markdown + YAML in git }
   - { id: build, label: snypd build }
-  - { id: html, label: static HTML, 0 JS }
+  - { id: html, label: "static HTML, 0 JS" }
   - { id: twin, label: ".md twin, llms.txt, feed, JSON API" }
   - { id: host, label: Cloudflare Workers, kind: pill }
 edges:
@@ -52,9 +52,9 @@ The first commit was on 27 August 2026. Since then the repo has taken nineteen w
 The build is the part I expected to be slow and is not. A cold build with no cache, no index and no output directory scales in a straight line with the number of posts, at about three milliseconds a page.
 
 :::chart{type="bar" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md" caption="Cold build time by corpus size, no cache and no index. Budgets are 2 s, 20 s and 200 s; every run lands well under 20 % of its budget." unit="ms"}
-- { label: 100 posts, value: 305.6 }
-- { label: 1,000 posts, value: 2722.4 }
-- { label: 10,000 posts, value: 27481.6 }
+- { label: "100 posts", value: 305.6 }
+- { label: "1,000 posts", value: 2722.4 }
+- { label: "10,000 posts", value: 27481.6 }
 :::
 
 An incremental build after editing one post is under 10 ms, because only the page that changed is rendered and the other 121 routes come from the cache.
@@ -69,13 +69,14 @@ This post was written by an agent, through the MCP server, against the working t
 
 :::flow{caption="The path from a prompt to a live URL. Nothing in it needs a browser tab."}
 steps:
-  - Read snypd://config and snypd://spec/primitives
-  - Write the post with content.create
+  - Read the site config and the primitive spec
+  - id: write
+    do: Write the post with content.create
   - ask: Lint clean?
     yes: Render the preview and read the markdown twin
-    no: { then: fix }
-  - id: fix
-    do: Fix the rule the lint named and write again
+    no:
+      - Fix the rule the lint named
+      - { then: write }
   - Publish, which lands this one item on main
   - Push, and the host builds and serves it
 :::
