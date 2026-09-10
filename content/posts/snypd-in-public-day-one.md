@@ -5,6 +5,8 @@ status: published
 description: "A CMS whose only interface is MCP. Ten days in: a 22 ms server, 510-token pages, zero JS, and the first post published through it."
 author: sunny
 category: building-in-public
+tags:
+  - mcp
 ---
 
 :::tldr
