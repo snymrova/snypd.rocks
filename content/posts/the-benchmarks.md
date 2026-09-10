@@ -5,6 +5,8 @@ status: published
 description: Every number snypd claims comes from a suite that runs in CI and fails the build when a budget is breached. What is measured, how, and which budgets are tight.
 author: sunny
 category: building-in-public
+tags:
+  - mcp
 ---
 
 :::tldr
