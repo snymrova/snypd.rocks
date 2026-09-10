@@ -11,3 +11,10 @@ theme:
 types:
   author:
     layout: author
+
+# Plugins (docs/10 §4.8): bundled, no install. `autolink` links the first mention of a category or tag to its
+# archive; `indexnow` emits /indexnow/<key>.txt and tells Bing, Yandex, Seznam and Naver which pages a push
+# changed. The key is a claim, not a secret. Both need a release that carries them (0.1.4+) on the host's build.
+plugins:
+  - autolink
+  - indexnow: { key: 5ecb670b62f4978b94154dc09878ea1e }
