@@ -2,7 +2,6 @@
 title: Benchmarks
 status: draft
 description: "Every number snypd claims, from the suite CI runs on every push: 60 rows, 33 of them budgets that fail the build. Taken 2026-09-15 on v0.1.4."
-updated: 2026-09-15
 ---
 
 :::tldr
