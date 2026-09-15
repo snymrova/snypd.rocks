@@ -5,6 +5,7 @@ snypd: 1
 site:
   name: "snypd.rocks"
   url: "https://snypd.rocks" # placeholder — the feed, sitemap and JSON-LD are absolute, so publishing needs the real one
+  description: "Your CMS is wherever your agent is: a CMS an agent can actually use — markdown in your repo, static HTML out, zero JS."
 
 theme:
   use: editorial
