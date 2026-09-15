@@ -1,6 +1,6 @@
 ---
 title: Plugins
-status: draft
+status: published
 description: Four plugins ship inside snypd, one per tier. Each is two lines of YAML to enable, declares every byte it adds, and removing the line removes every byte.
 ---
 
