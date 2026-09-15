@@ -1,6 +1,6 @@
 ---
 title: Themes
-status: draft
+status: published
 description: "Every theme snypd ships, photographed: three themes, six looks, each a name your agent can switch to. All pass the same machine check before they are listed."
 ---
 
