@@ -8,6 +8,8 @@ site:
 
 theme:
   use: editorial
+  settings:
+    tagline: Publish a website from the harness you already have open.
 types:
   author:
     layout: author
