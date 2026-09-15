@@ -22,6 +22,8 @@ theme:
 
 Or ask: *"switch this site to editorial, the ink look"* — `theme › set` takes a `name` and a `variation`, and `snypd://themes` is the read an agent makes to choose.
 
+This page, the pictures on it and the site around it were written and published through that same server, by the agent building the product: the dogfood and the distribution channel are the same activity.
+
 ## editorial
 
 Long-form reading. One serif column at a comfortable measure, generous leading, a single accent used sparingly. Figures, charts, diagrams and flows break out of the column; nothing else does. One subsetted variable webfont, declared at 31 KB and measured under it. Zero JS.
