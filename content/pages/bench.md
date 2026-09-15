@@ -12,7 +12,6 @@ description: "Every number snypd claims, from the suite CI runs on every push: 6
 ::stat{value="23 ms" label="MCP cold start, release binary" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
 ::stat{value="510 tokens" label="to read one page as markdown" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
 ::stat{value="0 KB" label="JavaScript on the page" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
-::stat{value="292.5 ms" label="cold build, 100 posts" source="https://github.com/snymrova/snypd/blob/main/bench/latest.md"}
 :::
 
 ## How to read this page
