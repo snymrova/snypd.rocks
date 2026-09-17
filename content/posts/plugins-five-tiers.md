@@ -112,7 +112,7 @@ That test is the answer to the question anybody who has maintained a WordPress s
 
 :::faq
 ### Do I have to install anything to use these four?
-No. They ship inside the binary, the way the two themes do. Naming one in the config works on a fresh site with no install step, and a plugin of your own in `plugins/` or `node_modules/` is found first, so a third-party plugin is not second-class.
+No. They ship inside the binary, the way the three themes do. Naming one in the config works on a fresh site with no install step, and a plugin of your own in `plugins/` or `node_modules/` is found first, so a third-party plugin is not second-class.
 
 ### Does a plugin slow down a site that does not use one?
 No. The loader runs only over the plugins your config names, so a site with none never goes looking. The cold-build lanes in CI show no change in either direction.
@@ -126,6 +126,6 @@ No, and it says so. Every manifest carries the contract version it speaks, that 
 
 ## Where this leaves the launch
 
-The plugin gate is green: four plugins, one per tier, bundled and proven, with the byte diff to show for it. What is left is presentation — a settings schema for themes, style variations, a third theme built entirely from the contract, and the pages on this site that show all of it.
+The plugin gate is green: four plugins, one per tier, bundled and proven, with the byte diff to show for it. This post was written the day it went green and sat as a draft while the presentation work it named — a settings schema for themes, style variations, a third theme built entirely from the contract — got done; that work has [its own post](/posts/six-looks-one-contract/), and [the plugins page](/plugins/) shows the four with the two lines of YAML each one costs.
 
-Two of the four are already switched on here. They will show up on the public page the day the host builds this site with a release that carries them, which is the same wait the navigation menus had, and a fair description of what building in public actually looks like: the thing works locally, and then it has to ship.
+Two of the four are already switched on here. They show up on the public page the day the host builds this site with a release that carries them, which is the same wait the navigation menus had, and a fair description of what building in public actually looks like: the thing works locally, and then it has to ship.
