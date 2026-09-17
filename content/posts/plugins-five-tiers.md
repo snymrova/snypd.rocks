@@ -1,12 +1,13 @@
 ---
 title: "Plugins: five tiers, four proofs, and every byte declared"
 date: 2026-09-12
-status: draft
+status: published
 description: "Snypd's plugin contract: a manifest that is checked, five tiers a plugin declares, four bundled proofs, and a JavaScript budget the first plugin had to fit."
 author: sunny
 category: building-in-public
 tags:
   - mcp
+updated: 2026-09-17
 ---
 
 :::tldr
