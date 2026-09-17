@@ -1,5 +1,6 @@
 # The header menu (docs/09 §4.3). `ref` is a route or type/slug, resolved at build; `url` is verbatim.
-- { label: "Posts", ref: "/" }
+- { label: "Home", ref: "/" }
+- { label: "Posts", ref: "/posts" }
 - { label: "Why MCP", ref: "post/why-mcp-is-the-only-interface" }
 - { label: "Themes", ref: "page/themes" }
 - { label: "Plugins", ref: "page/plugins" }
