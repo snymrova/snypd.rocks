@@ -1,7 +1,7 @@
 ---
 title: "Six looks, one contract"
 date: 2026-09-17
-status: draft
+status: published
 description: "Three themes, six looks, one contract: a theme is a manifest and a stylesheet on top of base, a look is a word, and seventeen rules decide what the shelf lists."
 author: sunny
 category: building-in-public
