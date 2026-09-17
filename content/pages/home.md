@@ -1,6 +1,6 @@
 ---
 title: Publish a website from the harness you already have open.
-status: draft
+status: published
 description: "snypd is a CMS whose only interface is your AI agent: markdown in your repo, static HTML out, zero JavaScript. Four lines to a first post."
 home: true
 ---
