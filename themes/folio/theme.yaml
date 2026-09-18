@@ -1,0 +1,116 @@
+# folio — snypd.rocks's own theme: the product look (docs/25, decision 207). A light page with one big
+# sentence, every section a heading beside its content, one hairline between sections, a dark close.
+#
+# Site-local, not bundled (decision 202's rule): this directory lives in the site's `themes/`, the loader
+# finds it first (site.ts), and `extends: base` walks up to the bundled floor by name — `base`'s plain
+# header with its popover menu, its shell, its fourteen primitives and six layouts — and this file adds
+# the sheet, the tokens, a front page drawn as two-column bands with a button in the hero (decision 208),
+# the ledger as ruled rows (also the entry list), and a dark footer. Over `base` and not `studio` or
+# `technical`: the first theme in a chain that declares `font:` ships its face, and this look wants its
+# own. Held to the same gate: `snypd check theme folio --root=sites/snypd.rocks`.
+#
+# **One face, one weight, for what is set and not what is read** (docs/25 §3): Inter 500, Latin, from
+# `scripts/vendor-font.sh folio` — the headline, the section headings, the numbers, the buttons, the
+# brand. Prose is the system sans and code the system mono, so the wire carries 18 KB of font against the
+# 40 lane (decision 118). Inter Tight is Inter with tighter spacing; the sheet's tracking is the same
+# picture at display size and one file fewer.
+theme: folio
+version: 0.1.0
+spec: ^1
+extends: base
+css: ./theme.css
+font:
+  family: Inter
+  file: ./fonts/inter-latin.woff2
+  weight: 500
+  kb: 18
+  # Computed by `scripts/vendor-font.sh folio` at the one weight shipped, against Arial — on every Mac and
+  # every Windows. 100 % is measured, not defaulted: the two faces differ glyph by glyph (Inter's `t` is
+  # wider, its space narrower) and the frequency-weighted mean advance comes out the same, 0.4442 em.
+  fallback:
+    local: Arial
+    size-adjust: 100.0%
+    ascent-override: 96.9%
+    descent-override: 24.1%
+    line-gap-override: 0.0%
+# Arrays replace up the chain (theme.ts): base's six, then the three of this theme's own.
+layouts: [post, page, index, term, author, home, release, log, log-index]
+# Parts merge up the chain, so base's shell, toc and motion stand; the header is this theme's own, for the
+# `logo` setting (S35) — base's header with the name or the mark in the same link. The ledger is registered as
+# `entries` too: `/posts/`, a term page and an author page are the same rows as the log.
+parts:
+  header:  ./parts/header.tsx
+  ledger:  ./parts/ledger.tsx
+  entries: ./parts/ledger.tsx
+  footer:  ./parts/footer.tsx
+settings:
+  - { id: logo,       type: image,     label: Logo,               group: Identity, info: "Site-relative url of an image — put the file in content/media/. Without one the header sets the site's name in the display face." }
+  - { id: heroLabel,  type: text,      label: "Hero button",      group: "Front page", default: "Start", info: "The word on the button under the front page's headline. With no link below, no button is drawn." }
+  - { id: heroHref,   type: text,      label: "Hero button link", group: "Front page", default: "/start/", info: "Where that button goes — a Start page, the docs, an install guide. Site-relative or absolute; empty draws no button." }
+  - { id: showDates,  type: boolean,   label: "Show dates",       group: Posts,  default: true, info: "Off hides the date on the byline and in every list." }
+  - { id: dateFormat, type: select,    label: "Date format",      group: Posts,  default: short, options: [iso, long, short], info: "2026-09-12 · 12 September 2026 · 12 Sep 2026. English month names; the <time> element always carries the machine-readable date." }
+  - { id: tldrLabel,  type: text,      label: "Summary label",    group: Posts,  default: "In short", info: "The word above a `tldr` block. A page may still set its own `label`." }
+  - { id: footerNote, type: richtext,  label: "Footer note",      group: Footer, info: "The left end of the footer's one line — a licence, a colophon, a copyright. Markdown." }
+  - { id: statusNote, type: richtext,  label: "Status note",      group: Footer, info: "The right end of the footer's line — `0 KB JS · 18 rules`. A claim the site makes; the bench page is where it is proven. Markdown." }
+  - { id: social,     type: link_list, label: "Social links",     group: Footer, info: "[{ label, url }] in the footer. Links off this site, so they are urls and not refs — a menu of your own pages is content/nav/footer.yaml." }
+
+personality: >-
+  The product look. A light page with one big sentence in a medium grotesk and a dark button under it;
+  every section a heading on the left and its content on the right, one hairline between sections; lists
+  as ruled rows with the date at the right; a dark band to close and a dark footer under it. One webfont
+  at one weight for what is set, the system faces for what is read. Zero JS.
+
+tokens:
+  # ── Colour. Every value is a light-dark() pair. The page commits to light; the closing band and the
+  # footer are one declaration each — `color-scheme: dark` over the same pairs — which is why the dark
+  # halves are written and why the contrast gate reads them.
+  color.scheme:    { default: "light", customisable: true, kind: keyword, description: "What `color-scheme` the page asks the browser for outside the dark close and footer. `light` commits, as drawn; `light dark` follows the reader; `dark` commits the other way." }
+  color.bg:        { default: "light-dark(#f9f9f9, #121214)", customisable: true, kind: color, description: "Page background; the dark half is the closing band's and the footer's." }
+  color.surface:   { default: "light-dark(#ededef, #1d1d20)", customisable: true, kind: color, description: "Raised blocks — code, callout, the summary." }
+  color.text:      { default: "light-dark(#121214, #f9f9f9)", customisable: true, kind: color, description: "Body text and headings." }
+  color.muted:     { default: "light-dark(#6a6a6e, #a5a5a8)", customisable: true, kind: color, description: "Dates, captions, labels, the line under a row's title." }
+  color.accent:    { default: "light-dark(#121214, #f9f9f9)", customisable: true, kind: color, description: "The button's fill and the link colour. The text colour by default: this look's emphasis is size, not hue." }
+  color.on-accent: { default: "light-dark(#ffffff, #121214)", customisable: true, kind: color, description: "Text on a button." }
+  color.border:    { default: "light-dark(#e2e2e4, #2a2a2e)", customisable: true, kind: color, description: "The hairline between sections and between rows." }
+
+  # ── Viz. `@snypd/viz` reads these directly (docs/07 decision 17: the theme brings colour, never geometry).
+  color.viz.1:           { default: "light-dark(#1b5fd0, #77aaf5)", customisable: true, kind: color, description: "First series." }
+  color.viz.2:           { default: "light-dark(#0f7a6a, #52c2ae)", customisable: true, kind: color, description: "Second series." }
+  color.viz.3:           { default: "light-dark(#8f6300, #dcae4a)", customisable: true, kind: color, description: "Third series." }
+  color.viz.4:           { default: "light-dark(#a2385c, #e888a7)", customisable: true, kind: color, description: "Fourth series." }
+  color.viz.5:           { default: "light-dark(#5a4bb8, #a79bf0)", customisable: true, kind: color, description: "Fifth series." }
+  color.viz.6:           { default: "light-dark(#4d6b1f, #a3c261)", customisable: true, kind: color, description: "Sixth series." }
+  color.viz.axis:        { default: "light-dark(#6a6a6e, #a5a5a8)", customisable: true, kind: color, description: "Axis lines." }
+  color.viz.grid:        { default: "light-dark(#e8e8ea, #242428)", customisable: true, kind: color, description: "Gridlines." }
+  color.viz.tick:        { default: "light-dark(#6a6a6e, #a5a5a8)", customisable: true, kind: color, description: "Tick labels." }
+  color.viz.label:       { default: "light-dark(#121214, #f9f9f9)", customisable: true, kind: color, description: "Node and edge labels." }
+  color.viz.edge:        { default: "light-dark(#86868c, #6e6e74)", customisable: true, kind: color, description: "Diagram and flow edges." }
+  color.viz.node:        { default: "light-dark(#ededef, #1d1d20)", customisable: true, kind: color, description: "Node fill." }
+  color.viz.node-stroke: { default: "light-dark(#c9c9ce, #38383d)", customisable: true, kind: color, description: "Node outline." }
+
+  # ── Type. The display face for what is set, the system stacks for what is read.
+  font.display: { default: "'Inter', 'Inter fallback', Arial, Helvetica, sans-serif", customisable: true, kind: font, description: "The display face — the headline, headings, the numbers, buttons, the brand. The one webfont, at weight 500." }
+  font.body:    { default: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif", customisable: true, kind: font, description: "Prose and lists." }
+  font.ui:      { default: "var(--font-body)", customisable: true, kind: font, description: "Meta, nav, captions, table headers." }
+  font.mono:    { default: "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Cascadia Mono', 'JetBrains Mono', 'DejaVu Sans Mono', 'Liberation Mono', monospace", customisable: true, kind: font, description: "Code, the four lines, a step's number." }
+  font.heading: { default: "var(--font-display)", customisable: true, kind: font, description: "Headings. The display face; point it at font.body for a page with no webfont in its titles." }
+  size.body:    { default: "1.0625rem", customisable: true, kind: size, description: "Body size: 17 px, the mockup's." }
+  size.display: { default: "clamp(2.75rem, 1rem + 5.5vw, 6rem)", customisable: true, kind: size, description: "The front page's headline: 96 px at 1440, 44 px on a phone — centred, two lines on a desktop and three on a phone." }
+  size.number:  { default: "clamp(2.25rem, 1rem + 2.6vw, 3.25rem)", customisable: true, kind: size, description: "A stat's value: 52 px at 1440. The mockup's 64 fitted three across half the container in Inter Tight; in Inter `23 ms` does not, and a value never wraps." }
+  size.h1:      { default: "clamp(2rem, 1.4rem + 2.4vw, 3.25rem)", customisable: true, kind: size, description: "A reading page's title." }
+  size.h2:      { default: "clamp(1.75rem, 1rem + 1.7vw, 2.5rem)", customisable: true, kind: size, description: "A section heading: 40 px at 1440, beside its content on the front page." }
+  size.h3:      { default: "1.25rem", customisable: true, kind: size, description: "Sub-heading." }
+  size.small:   { default: "0.875rem", customisable: true, kind: size, description: "Meta, captions, dates, the footer." }
+  leading.body: { default: "1.5", customisable: true, kind: number, description: "Prose line height." }
+  leading.tight: { default: "1.08", customisable: true, kind: number, description: "Heading line height. Tight: the face is set large and tracked in." }
+  measure:      { default: "42rem", customisable: true, kind: size, description: "Width of the reading column on a post, a log entry, a page." }
+  measure.wide: { default: "1166px", customisable: true, kind: size, description: "The container: the header, every band of the front page and the footer share its two edges. 137 px margins at 1440." }
+
+  # ── Space. Six steps; every gap in theme.css is one of these.
+  space.1: { default: "0.25rem", customisable: true, kind: size, description: "Hairline gap." }
+  space.2: { default: "0.5rem",  customisable: true, kind: size, description: "Inside a line." }
+  space.3: { default: "1rem",    customisable: true, kind: size, description: "Between paragraphs." }
+  space.4: { default: "1.5rem",  customisable: true, kind: size, description: "Around a block; the page's gutter." }
+  space.5: { default: "2.5rem",  customisable: true, kind: size, description: "Between a band's two columns; between sections of prose." }
+  space.6: { default: "clamp(4rem, 2.4rem + 4.4vw, 6rem)", customisable: true, kind: size, description: "A band's padding, top and bottom: 96 px on a desktop, 64 on a phone." }
+  radius:  { default: "8px", customisable: true, kind: size, description: "Corner radius on buttons and code; a picture takes twice it." }

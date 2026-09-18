@@ -1,9 +1,9 @@
 import { formatDate, part, settingFlag, settingText, transitionName, Slot, type LayoutProps, type Html } from "@snypd/render";
 
 /**
- * A release (docs/24 §4): the `release` type the changelog plugin declares. The version is the prompt
- * above the title; a release that says `breaking: true` carries the word bracketed in the first series
- * colour beside it; the body is the reading column; and under it the release before and after, from the
+ * A release (docs/25 §4.2, carried from `console`): the `release` type the changelog plugin declares.
+ * The version sits above the title; a release that says `breaking: true` carries the word as a badge
+ * beside it; the body is the reading column; and under it the release before and after, from the
  * neighbours the build hands every dated item (decision 198), as the ledger's rows. `version` and
  * `breaking` are read by name because the plugin declares them (plugins/changelog).
  */
@@ -22,7 +22,7 @@ export default function Release({ ctx, page, adjacent, route, title, description
         <article class="snypd-post snypd-release">
           {p.cover ?? (
             <header class="snypd-cover">
-              <p class="snypd-eyebrow">{version ? <span>v{version}</span> : "Release"}{breaking ? <> <span class="snypd-ledger-kind" data-kind="breaking">breaking</span></> : null}</p>
+              <p class="snypd-eyebrow">{version ? <span>v{version}</span> : "Release"}{breaking ? <> <span class="snypd-badge">Breaking</span></> : null}</p>
               <h1 style={`view-transition-name: ${transitionName(p)}; view-transition-class: snypd-title`}>{p.title}</h1>
               {p.description ? <p class="snypd-subtitle">{p.description}</p> : null}
             </header>

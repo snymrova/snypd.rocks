@@ -1,7 +1,7 @@
 import { formatDate, part, settingFlag, settingText, transitionName, Slot, type LayoutProps, type Html } from "@snypd/render";
 
 /**
- * A session's entry in the log (docs/24 §4): a reading page — `technical`'s post, in effect, with the
+ * A session's entry in the log (docs/25 §4.2, carried from `console`): a reading page with the
  * session's own name as the prompt above the title and the facts as a status line under it: the pull
  * request when one carried it, the decisions it added as links into docs/11 §8 on GitHub, and what kind
  * of entry it is (the `kind` term, bracketed and coloured the way the ledger does it). The fields are
@@ -24,7 +24,7 @@ export default function Log({ ctx, page, adjacent, route, title, description, js
   if (p.date && dates) cells.push({ term: "Date", body: <time datetime={p.date}>{formatDate(p.date, format)}</time> });
   if (pr) cells.push({ term: "Pull request", body: <a href={`${PR}${pr}`} rel="external">#{pr}</a> });
   if (decisions.length) cells.push({ term: decisions.length === 1 ? "Decision" : "Decisions", body: <span class="snypd-log-decisions">{decisions.map((d) => <a href={DECISIONS} rel="external">{String(d)}</a>)}</span> });
-  if (p.terms.length) cells.push({ term: "Kind", body: <span>{p.terms.map((t, i) => <>{i ? " " : ""}<a class="snypd-ledger-kind" data-kind={t.term} href={`${t.route}/`} rel="tag">{t.term}</a></>)}</span> });
+  if (p.terms.length) cells.push({ term: "Kind", body: <span>{p.terms.map((t, i) => <>{i ? ", " : ""}<a href={`${t.route}/`} rel="tag">{t.title}</a></>)}</span> });
   const next = adjacent?.newer ?? adjacent?.older;
   return (
     <Shell ctx={ctx} title={title} description={description} markdownUrl={p.markdownUrl} route={route} jsonLd={jsonLd} page={p}>

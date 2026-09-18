@@ -6,20 +6,21 @@ site:
   name: "snypd.rocks"
   url: "https://snypd.rocks"
   description: "Your CMS is wherever your agent is: a CMS an agent can actually use — markdown in your repo, static HTML out, zero JS."
-  # The card every share and every search result shows: 1200 × 630, the studio look, drawn once
-  # (content/media/og.png). A page with a `cover.image` shares that instead.
+  # The card every share and every search result shows: 1200 × 630, the hero of the product look, drawn
+  # once (content/media/og.png). A page with a `cover.image` shares that instead.
   image: /media/og.png
 
-# The terminal look (docs/24, decision 202): the site's own theme in `themes/console/`, over the bundled
-# technical. The loader looks here first; `snypd check theme console --root=.` holds it to the same
-# eighteen rules.
+# The product look (docs/25, decision 207): the site's own theme in `themes/folio/`, over the bundled
+# base. The loader looks here first; `snypd check theme folio --root=.` holds it to the same eighteen
+# rules. The hero's button is two settings (decision 208); the footer's one line is two more.
 theme:
-  use: console
+  use: folio
   settings:
-    tagline: "a CMS your agent can actually use"
-    repo: https://github.com/snymrova/snypd
+    logo: /media/snypd-wordmark.svg
+    heroLabel: "Start in four lines"
+    heroHref: /start/
     dateFormat: short
-    footerNote: "Built in public, through snypd's own MCP server. Source, spec and every benchmark are [on GitHub](https://github.com/snymrova/snypd); MIT."
+    footerNote: "snypd.rocks · built in public, through its own MCP server · MIT"
     statusNote: "0 KB JS · 18 rules · [every number](/bench/)"
 
 # The registry (docs/20), on the site that ships it. `log` is the session log made public: one entry per

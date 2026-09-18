@@ -1,10 +1,10 @@
 /**
- * The ledger (docs/24 §3): a dated type as rows, the way `git log --oneline` reads — the entry's own
- * mark (a log's `session`, a release's `version`) in the accent like a short hash, the title, the
- * description muted on the next line, the date right, and the term it is filed under as a bracketed
- * word coloured by `data-kind` (decision 205: the six series tokens, nothing else; a kind the sheet has
- * no colour for is muted). Registered as `entries` too, so `/posts/`, a term page and an author page
- * are the same rows: a post has no mark, so its first term takes the mark's place and the bracket goes.
+ * The ledger (docs/25 §3): a dated type as ruled rows — the title, a small muted line under it, the date
+ * at the right. The line says what kind of entry it is and the entry's own mark: *Shipped · S32* for a
+ * log entry, *v0.1.4* for a release (*Breaking · v0.2.0* when it says so), and for a post, which has no
+ * mark, the first term it is filed under. Registered as `entries` too, so `/posts/`, a term page and an
+ * author page are the same rows. The archives show the description under the line; the front page's
+ * rows do not (the sheet's call, not this part's).
  *
  * The build orders a list by date and then by route, so four sessions on one day read R1, R2, R3, R4
  * under a heading that promises newest first. Within a day the mark decides — R4 above R1, v0.1.4
@@ -27,21 +27,17 @@ export default function Ledger({ ctx, entries }: EntriesProps): Html {
   return (
     <ol class="snypd-ledger" reversed>
       {rows.map((e, i) => {
-        const term = e.terms?.[0];
-        const own = markOf(e);
-        const mark = own ?? term?.title;
-        const kind = own ? term : undefined;
         const breaking = (e.frontmatter as { breaking?: unknown }).breaking === true;
+        const meta = [breaking ? "Breaking" : e.terms?.[0]?.title, markOf(e)].filter((s): s is string => !!s).join(" · ");
         return (
           <li>
-            <a class="snypd-ledger-row" href={`${e.route}/`} data-kind={breaking ? "breaking" : kind?.term}>
+            <a class="snypd-ledger-row" href={`${e.route}/`}>
               <span class="snypd-ledger-what">
-                {mark ? <span class="snypd-ledger-mark">{mark}</span> : null}
                 <span class="snypd-ledger-title" style={i < 6 ? `view-transition-name: ${transitionName(e)}; view-transition-class: snypd-title` : undefined}>{e.title}</span>
+                {meta ? <span class="snypd-ledger-meta">{meta}</span> : null}
                 {e.description ? <span class="snypd-ledger-text">{e.description}</span> : null}
               </span>
-              <span class="snypd-ledger-when">{e.date && dates ? <time datetime={e.date}>{formatDate(e.date, format)}</time> : null}</span>
-              {breaking ? <span class="snypd-ledger-kind">breaking</span> : kind ? <span class="snypd-ledger-kind">{kind.term}</span> : null}
+              {e.date && dates ? <span class="snypd-ledger-when"><time datetime={e.date}>{formatDate(e.date, format)}</time></span> : null}
             </a>
           </li>
         );

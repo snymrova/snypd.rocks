@@ -1,0 +1,362 @@
+/* folio — one sheet over `base`'s markup (docs/25). Token vars are emitted above this by the build; every
+   colour, face, size and gap here is a var. In the order docs/25 §4.2 gives: the tokens' use · the
+   container · the masthead · type and the reading page · the hero · bands (a heading beside its
+   content) · numbers · steps · lists · the close · the footer · the runtime pass · then, under
+   `@supports`, the tier-B count-up · and the fold at 47.5 rem, where two columns become one. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Cross-document view transitions: a cross-fade between pages with zero JavaScript, and a browser
+   without them navigates as before (docs/11 §5.3). Nothing animates for a reader who asked for that. */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── 0. The tokens' use, and the container. `--edge` is the one left and right edge every full-width
+   thing shares — the masthead, each band, the footer: the 1166 px container centred, a gutter inside
+   it, which at 1440 is the mockup's 137 + 24. A percentage in it resolves where it is used, against the
+   page's width, because all three are children of `body` or of a `main` that is as wide. */
+:root {
+  color-scheme: var(--color-scheme);
+  --edge: max(var(--space-4), calc((100% - var(--measure-wide)) / 2 + var(--space-4)));
+  --content: min(100% - var(--space-4) * 2, var(--measure));
+  --breakout: min(100% - var(--space-4) * 2, calc(var(--measure) + 14rem));
+}
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--color-bg); color: var(--color-text);
+  font: var(--size-body) / var(--leading-body) var(--font-body);
+  font-synthesis-weight: none; -webkit-font-smoothing: antialiased;
+}
+:target { scroll-margin-top: var(--space-4); }
+
+/* ── 1. The masthead. `base`'s header as it comes: the name, the menu, the motion control. The name in the
+   display face; the menu small; and a link that leaves the site — the repository — drawn as the outlined
+   button the mockup ends its menu on, by what it is (`rel="external"`) and not by where it sits. */
+body > header {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-2) var(--space-4); min-height: 3.875rem;
+  padding: var(--space-2) var(--edge); border-bottom: 1px solid var(--color-border);
+}
+body > header > a[rel="home"] { font: 500 1.375rem / 1 var(--font-display); letter-spacing: -0.02em; color: var(--color-text); text-decoration: none; }
+body > header .snypd-logo { display: block; height: 1.75rem; width: auto; }
+body > header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) 1.75rem; }
+body > header nav li { margin: 0; }
+body > header nav a { font-size: var(--size-small); color: var(--color-text); text-decoration: none; }
+body > header nav a:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+body > header nav a[aria-current="page"] { box-shadow: inset 0 -1px 0 currentColor; }
+body > header nav a[rel~="external"] {
+  display: inline-block; padding: 0.5rem 0.875rem; border-radius: calc(var(--radius) - 1px);
+  border: 1px solid color-mix(in oklab, var(--color-text) 22%, var(--color-bg));
+  font: 500 var(--size-small) / 1.2 var(--font-display);
+}
+body > header nav a[rel~="external"]:hover { text-decoration: none; border-color: var(--color-text); }
+.snypd-motion { font-size: var(--size-small); color: var(--color-muted); }
+
+/* ── 2. Type. One display face at one weight for what is set; the system sans for what is read. The face
+   ships 500 and nothing else, and `font-synthesis-weight: none` above means a heading asks for exactly
+   that. Tracked in, more as it gets larger — Inter Tight's picture from Inter's file (docs/25 §3). */
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height: var(--leading-tight); letter-spacing: -0.025em; text-wrap: balance; margin: 0; }
+h1 { font-size: var(--size-h1); letter-spacing: -0.03em; }
+h2 { font-size: var(--size-h2); margin-top: var(--space-5); }
+h3 { font-size: var(--size-h3); letter-spacing: -0.015em; line-height: 1.25; margin-top: var(--space-4); }
+h4 { font-size: var(--size-body); letter-spacing: -0.01em; line-height: 1.3; margin-top: var(--space-4); }
+p, ul, ol, dl, blockquote, pre, table, figure, figcaption { margin: 0; }
+p { text-wrap: pretty; }
+ul, ol { padding-inline-start: 1.3em; }
+li + li { margin-top: var(--space-2); }
+a { color: var(--color-accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; border-radius: 3px; }
+strong { font-weight: 600; }
+small, time, figcaption { font-family: var(--font-ui); font-size: var(--size-small); color: var(--color-muted); }
+code, kbd, samp, pre { font-family: var(--font-mono); }
+code { font-size: 0.88em; background: var(--color-surface); border-radius: 5px; padding: 0.12em 0.38em; }
+pre { background: var(--color-surface); border-radius: var(--radius); padding: var(--space-3) var(--space-4); overflow-x: auto; font-size: 0.875rem; line-height: 1.6; tab-size: 2; }
+pre code { background: none; padding: 0; font-size: inherit; }
+kbd { font-size: 0.85em; background: var(--color-surface); border: 1px solid var(--color-border); border-bottom-width: 2px; border-radius: 5px; padding: 0.1em 0.4em; }
+hr { border: 0; border-top: 1px solid var(--color-border); margin-block: var(--space-5); }
+/* A table keeps its role: no `display: block` to scroll it (technical's note). Cells wrap instead. */
+table { border-collapse: collapse; font-size: var(--size-small); line-height: 1.45; width: max-content; max-width: 100%; margin-inline: auto; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-border); vertical-align: top; overflow-wrap: anywhere; }
+th { font: 500 var(--size-small) / 1.45 var(--font-display); color: var(--color-text); border-bottom-color: var(--color-text); }
+tbody tr:last-child td { border-bottom: 0; }
+
+/* ── 3. The reading page: a post, a log entry, a release, a page, an archive. One grid, three tracks —
+   text, breakout, full — so a figure that asks for `wide` gets it. The front page is not this grid. */
+main:not(.snypd-home) {
+  display: grid;
+  grid-template-columns:
+    [full-start] 1fr
+    [wide-start] calc((var(--breakout) - var(--content)) / 2)
+    [text-start] var(--content) [text-end]
+    calc((var(--breakout) - var(--content)) / 2) [wide-end]
+    1fr [full-end];
+  row-gap: var(--space-3);
+  padding-block: var(--space-6);
+}
+main > *, .snypd-post > *, main > .snypd-page > * { grid-column: text; min-width: 0; }
+.snypd-post, main:not(.snypd-home) > .snypd-page { display: contents; }
+figure.snypd-chart, figure.snypd-diagram, figure.snypd-flow, .snypd-figure[data-width="wide"], .snypd-post > pre, .snypd-post > table, main > .snypd-page > table { grid-column: wide; }
+.snypd-figure[data-width="full"] { grid-column: full; }
+/* One edge inside a figure (docs/19 §2 · 2): it shrinks to its drawing and the caption wraps under it. */
+figure:is(.snypd-chart, .snypd-diagram, .snypd-flow) { justify-self: center; width: fit-content; max-width: 100%; }
+figure:is(.snypd-chart, .snypd-diagram, .snypd-flow) > figcaption { contain: inline-size; }
+
+.snypd-cover { margin-bottom: var(--space-3); }
+.snypd-eyebrow { font: 500 var(--size-small) / 1.2 var(--font-display); color: var(--color-muted); margin-bottom: var(--space-3); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.snypd-subtitle { font-size: var(--size-h3); line-height: 1.4; color: var(--color-muted); margin-top: var(--space-3); max-width: 36rem; text-wrap: pretty; }
+.snypd-cover > img:not(.snypd-cover-media) { display: block; width: 100%; margin-top: var(--space-4); border-radius: calc(var(--radius) * 2); background: var(--color-surface); }
+.snypd-cover-media { width: 100%; margin-top: var(--space-4); border-radius: calc(var(--radius) * 2); background: var(--color-surface); }
+.snypd-byline { font: var(--size-small) / 1.4 var(--font-ui); color: var(--color-muted); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.snypd-byline a { color: inherit; }
+.snypd-badge { font: 500 0.75rem / 1 var(--font-display); color: var(--color-text); border: 1px solid currentColor; border-radius: 100px; padding: 0.3em 0.7em; }
+
+/* Blocks. Nothing here is a box inside a box: a block is a hairline above it, or one quiet surface. */
+.snypd-tldr { border-top: 1px solid var(--color-border); padding-top: var(--space-3); font-size: var(--size-h3); line-height: 1.4; }
+.snypd-tldr > p:first-child strong { display: block; font: 500 var(--size-small) / 1.2 var(--font-display); color: var(--color-muted); margin-bottom: var(--space-2); }
+.snypd-callout { background: var(--color-surface); border-left: 3px solid var(--kind, var(--color-border)); border-radius: 0 var(--radius) var(--radius) 0; padding: var(--space-3) var(--space-4); }
+.snypd-callout[data-kind="note"]    { --kind: var(--color-viz-1); }
+.snypd-callout[data-kind="tip"]     { --kind: var(--color-viz-2); }
+.snypd-callout[data-kind="warning"] { --kind: var(--color-viz-3); }
+.snypd-callout[data-kind="danger"]  { --kind: var(--color-viz-4); }
+blockquote { margin-block: var(--space-4); padding-left: var(--space-4); border-left: 2px solid var(--color-border); color: var(--color-muted); }
+.snypd-pullquote { border: 0; padding: 0; margin-block: var(--space-5); font: 500 var(--size-h2) / 1.12 var(--font-display); letter-spacing: -0.025em; color: var(--color-text); text-wrap: balance; }
+.snypd-pullquote footer { font: 400 var(--size-small) / 1.4 var(--font-ui); letter-spacing: 0; color: var(--color-muted); margin-top: var(--space-3); }
+
+/* The numbers: three across, then one — never two and a widow (`data-count` is the renderer's). The value
+   in the display face, the label small and muted under it, its source a link a reader finds on looking. */
+.snypd-stat-row { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+.snypd-stat-row[data-count="3"] { grid-template-columns: repeat(3, 1fr); }
+.snypd-stat-row[data-count="4"] { grid-template-columns: repeat(4, 1fr); }
+.snypd-stat-value { font: 500 var(--size-number) / 1 var(--font-display); letter-spacing: -0.035em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.snypd-stat-value strong { font-weight: inherit; }
+.snypd-stat-value small { font: 500 var(--size-small) / 1 var(--font-display); letter-spacing: 0; color: var(--color-muted); margin-left: 0.4em; }
+.snypd-stat-label { font-size: var(--size-small); color: var(--color-muted); margin-top: var(--space-3); max-width: 24ch; }
+.snypd-source { color: inherit; text-decoration: underline dotted; text-underline-offset: 0.2em; }
+.snypd-source:hover { color: var(--color-text); text-decoration-style: solid; }
+
+/* Steps: ruled rows, the number in mono in its own column — `01` to `04`. The number is `content` with
+   empty alt text, and absolutely placed rather than a grid cell: a step's body is inline markdown, and a
+   grid would make a cell of every `code` and `strong` in it. */
+.snypd-steps > :is(h2, h3, h4), .snypd-faq > :is(h2, h3, h4) { margin-top: 0; margin-bottom: var(--space-3); }
+.snypd-steps ol { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+.snypd-steps ol > li { counter-increment: step; position: relative; margin: 0; padding: 1.25rem 0 1.25rem 3.5rem; border-top: 1px solid var(--color-border); color: var(--color-muted); }
+.snypd-steps ol > li:last-child { border-bottom: 1px solid var(--color-border); }
+.snypd-steps ol > li::before { content: counter(step, decimal-leading-zero) / ""; position: absolute; left: 0; top: 1.25rem; font: 400 var(--size-small) / 1.82 var(--font-mono); color: var(--color-muted); }
+.snypd-steps ol > li strong { font: 500 1em / inherit var(--font-display); letter-spacing: -0.005em; color: var(--color-text); }
+.snypd-steps ol > li :is(em, code, a) { color: var(--color-text); }
+
+.snypd-faq-item { border-top: 1px solid var(--color-border); padding-block: var(--space-3); }
+.snypd-faq-item:last-child { border-bottom: 1px solid var(--color-border); }
+.snypd-faq-item summary { list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+.snypd-faq-item summary::-webkit-details-marker { display: none; }
+.snypd-faq-item summary::after { content: "+" / ""; font: 400 var(--size-h3) / 1 var(--font-display); color: var(--color-muted); transition: rotate 200ms ease-out; }
+.snypd-faq-item[open] summary::after { rotate: 45deg; }
+.snypd-faq-item h3 { margin: 0; font-size: var(--size-body); letter-spacing: -0.005em; }
+.snypd-faq-answer { padding-block: var(--space-2) var(--space-1); color: var(--color-muted); }
+
+/* The call and the button: one dark button, the radius the mockup's, no arrow. */
+.snypd-cta { border-top: 1px solid var(--color-border); padding-top: var(--space-4); }
+.snypd-cta > p:first-child { font: 500 var(--size-h3) / 1.25 var(--font-display); letter-spacing: -0.015em; }
+.snypd-cta > p:first-child strong { font-weight: inherit; }
+.snypd-cta > p:nth-child(2) { color: var(--color-muted); margin-top: var(--space-2); max-width: 36rem; }
+.snypd-cta > p:last-child { margin-top: var(--space-4); }
+.snypd-button {
+  display: inline-block; background: var(--color-accent); color: var(--color-on-accent);
+  font: 500 var(--size-body) / 1.2 var(--font-display); letter-spacing: -0.005em; text-decoration: none;
+  padding: 0.875rem 1.25rem; border-radius: var(--radius); transition: background 150ms ease-out;
+}
+.snypd-button:hover { background: color-mix(in oklab, var(--color-accent) 82%, var(--color-bg)); }
+
+.snypd-figure, .snypd-chart, .snypd-diagram, .snypd-flow, .snypd-tldr, .snypd-callout, .snypd-stat-row, .snypd-steps, .snypd-faq, .snypd-cta { margin-block: var(--space-4); }
+.snypd-figure img, .snypd-figure video { display: block; width: 100%; border-radius: calc(var(--radius) * 2); background: var(--color-surface); }
+figcaption { margin-top: var(--space-2); }
+.snypd-chart figcaption:empty, .snypd-diagram figcaption:empty, .snypd-flow figcaption:empty { display: none; }
+/* Viz keeps the size it was drawn at (docs/07 decision 17). */
+.snypd-scroll { --viz-max-width: none; overflow-x: auto; overscroll-behavior-x: contain; }
+.snypd-scroll > svg { display: block; margin-inline: auto; }
+.snypd-diagram .snypd-scroll, .snypd-flow .snypd-scroll { --viz-max-width: 100%; }
+.snypd-diagram .snypd-scroll > svg, .snypd-flow .snypd-scroll > svg { min-width: calc(var(--viz-width, 0px) * 0.7); }
+.snypd-scroll:focus-visible { outline: 2px solid var(--color-text); outline-offset: 3px; }
+.snypd-logo-wall { margin-block: var(--space-4); }
+.snypd-logo-wall-title { font: 500 var(--size-small) / 1.2 var(--font-display); color: var(--color-muted); margin-bottom: var(--space-2); }
+.snypd-logo-wall ul { list-style: none; margin: 0; padding: var(--space-3) 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); }
+.snypd-logo-wall li { margin: 0; display: grid; gap: var(--space-1); justify-items: start; }
+.snypd-logo-wall img { display: block; height: 2rem; width: auto; max-width: 10rem; object-fit: contain; }
+.snypd-marquee { display: contents; }
+
+/* The post's foot, a log entry's facts, the neighbours under a body. */
+.snypd-post-footer { margin-top: var(--space-5); padding-top: var(--space-3); border-top: 1px solid var(--color-border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); font-size: var(--size-small); }
+.snypd-terms { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.snypd-terms li { margin: 0; }
+.snypd-terms a, .snypd-twin a { text-decoration: none; color: var(--color-muted); }
+.snypd-terms a { border: 1px solid var(--color-border); border-radius: 100px; padding: 0.25em 0.75em; }
+.snypd-terms a:hover, .snypd-twin a:hover { color: var(--color-text); border-color: var(--color-text); }
+.snypd-twin a::before { content: "↓ " / ""; }
+.snypd-facts { grid-column: wide; margin: 0 0 var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); padding-block: var(--space-3); border-block: 1px solid var(--color-border); font-size: var(--size-small); }
+.snypd-facts > div { display: grid; gap: 2px; }
+.snypd-facts dt { color: var(--color-muted); }
+.snypd-facts dd { margin: 0; font: 500 1em / 1.4 var(--font-display); }
+.snypd-facts a { color: inherit; text-decoration: none; }
+.snypd-facts a:hover { text-decoration: underline; }
+.snypd-log-decisions a + a::before { content: " · " / ""; color: var(--color-muted); }
+.snypd-around { grid-column: wide; margin-top: var(--space-5); }
+.snypd-around > h2 { margin: 0 0 var(--space-3); font-size: var(--size-small); letter-spacing: 0; color: var(--color-muted); }
+main > .snypd-ledger, main:has(> .snypd-ledger) > :is(h1, .snypd-lede) { grid-column: wide; }
+main:has(> .snypd-ledger) > h1 { margin-bottom: var(--space-3); }
+.snypd-lede { color: var(--color-muted); max-width: var(--measure); margin-bottom: var(--space-4); }
+.footnotes { margin-top: var(--space-5); padding-top: var(--space-3); border-top: 1px solid var(--color-border); font-size: var(--size-small); color: var(--color-muted); }
+.footnotes ol { padding-inline-start: 1.5em; }
+
+/* ── 4. The front page. `main` is a plain block and every band is full width with the container's edges
+   as its padding, so the hairline between two bands runs the width of the page as the mockup's does. */
+main.snypd-home { display: block; padding: 0; }
+.snypd-home > .snypd-page { display: contents; }
+
+/* A band: **the heading beside its content** (docs/25 §3). Two equal columns; the `h2` in the first, held
+   to the top, spanning every row; everything else in the second, in source order. No markup beyond the
+   `sections` seam — `<section class="snypd-band"><h2>` — which the studio and console looks stood on.
+   The rows have no gap, so the rows the heading spans and nothing fills are no height; the air between
+   blocks is a margin on every block after the first. */
+.snypd-band {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--space-5);
+  padding: var(--space-6) var(--edge); border-top: 1px solid var(--color-border);
+}
+.snypd-band > * { grid-column: 2; margin-block: 0; min-width: 0; }
+.snypd-band > h2 { grid-column: 1; grid-row: 1 / span 40; align-self: start; max-width: 14ch; }
+.snypd-band > h2 a { color: inherit; text-decoration: none; }
+.snypd-band > h2 a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
+.snypd-band > :not(h2) ~ :not(h2) { margin-top: var(--space-4); }
+.snypd-band > p { max-width: 36em; }
+.snypd-band > .snypd-stat-row + p { margin-top: var(--space-5); color: var(--color-muted); }
+
+/* The hero (docs/25 §3, redrawn in S35 on sight, four times): **one centred column, paced as the visit
+   is** — the sentence, the film, the button, then the prose and the window. The lead dissolves into the
+   band's grid (`display: contents`) so its children are placed among the cover and the button: the
+   lead's `figure` spans the container under the sentence as the page's one big picture, the button sits
+   under it, and the prose and the code block — the window — follow in the same centred column. No markup change: the author writes prose, a fence and a figure; the reading order
+   stays the source's. No rule above the hero. */
+.snypd-hero { border-top: 0; }
+.snypd-hero > .snypd-cover { grid-column: 1 / -1; grid-row: 1; margin: 0; text-align: center; }
+.snypd-hero h1 { font-size: var(--size-display); line-height: 1.02; letter-spacing: -0.035em; max-width: 12.5em; margin-inline: auto; text-wrap: balance; }
+.snypd-hero > .snypd-lead { display: contents; }
+.snypd-lead > * { grid-column: 1 / -1; margin-block: 0; min-width: 0; }
+.snypd-lead > figure { grid-column: 1 / -1; grid-row: 2; margin-top: calc(var(--space-6) * 0.583); }
+.snypd-lead > figure :is(img, video) { aspect-ratio: 16 / 10; object-fit: cover; background: var(--color-text); }
+.snypd-lead > figure > figcaption { text-align: center; }
+.snypd-hero > .snypd-hero-action { grid-column: 1 / -1; grid-row: 3; justify-self: center; margin-top: var(--space-5); }
+/* Under the button the column stays centred: the lead's first paragraph set as a title — the display
+   face, a step under a section heading, balanced — and the code block, the window, centred under it:
+   the dark half of the same pairs, one declaration, as the close is. Prose after the first paragraph is
+   quieter; what the author made strong is picked out in the display face and the text colour. */
+.snypd-lead > :not(figure) { grid-column: 1 / -1; justify-self: center; margin-top: var(--space-3); max-width: 36em; }
+.snypd-lead > p { text-align: center; text-wrap: pretty; }
+.snypd-lead > p:first-of-type { margin-top: calc(var(--space-6) * 0.75); font: 500 clamp(1.5rem, 1.05rem + 1.25vw, 2.125rem) / 1.18 var(--font-display); letter-spacing: -0.025em; text-wrap: balance; max-width: 25em; }
+.snypd-lead > p:not(:first-of-type) { color: var(--color-muted); }
+.snypd-lead > p:first-of-type + p { margin-top: var(--space-4); }
+.snypd-lead > p strong { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.005em; color: var(--color-text); }
+.snypd-lead > pre { width: min(100%, 34rem); max-width: none; color-scheme: dark; background: var(--color-bg); color: var(--color-text); margin-top: var(--space-5); padding: var(--space-4); border-radius: calc(var(--radius) * 2); font-size: 0.9375rem; line-height: 1.8; }
+@media (max-width: 64rem) { .snypd-lead > pre { font-size: 0.8125rem; padding: var(--space-3) var(--space-4); } }
+
+/* A ruled list in a band — the refusals: each item a title and a line, and the link that ends it set where
+   a row's date sits. `:last-child` is the last *element*: a list written as **title.** sentence. [where]. */
+.snypd-band > ul { list-style: none; padding: 0; }
+.snypd-band > ul > li { position: relative; margin: 0; padding: var(--space-3) 9rem var(--space-3) 0; border-top: 1px solid var(--color-border); font-size: var(--size-small); color: var(--color-muted); }
+.snypd-band > ul > li:last-child { border-bottom: 1px solid var(--color-border); }
+.snypd-band > ul > li > strong:first-child { display: block; font: 500 var(--size-body) / 1.4 var(--font-display); letter-spacing: -0.005em; color: var(--color-text); }
+.snypd-band > ul > li > a:last-child { position: absolute; right: 0; top: calc(var(--space-3) + 0.2em); color: inherit; white-space: nowrap; }
+.snypd-band > ul > li > a:last-child:hover { color: var(--color-text); }
+
+/* ── 5. The ledger: a dated type as ruled rows — the title, a small muted line under it (what kind of
+   entry, and its own mark), the date at the right. On the front page, /log/, /changelog/, /posts/ and
+   every term and author page: one part, five places. The archives show the description; the front
+   page's rows do not. */
+.snypd-ledger { list-style: none; padding: 0; margin: 0; }
+.snypd-ledger > li { margin: 0; border-top: 1px solid var(--color-border); }
+.snypd-ledger > li:last-child { border-bottom: 1px solid var(--color-border); }
+.snypd-ledger-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2) var(--space-4); align-items: start; padding-block: 1.125rem; color: inherit; text-decoration: none; }
+.snypd-ledger-what { display: grid; gap: 0.2rem; min-width: 0; }
+.snypd-ledger-title { font: 500 var(--size-body) / 1.4 var(--font-display); letter-spacing: -0.005em; text-wrap: balance; }
+.snypd-ledger-row:hover .snypd-ledger-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.snypd-ledger-meta { font-size: var(--size-small); color: var(--color-muted); }
+.snypd-ledger-text { color: var(--color-muted); text-wrap: pretty; max-width: 40rem; margin-top: 0.2rem; }
+.snypd-ledger-when { font-size: var(--size-small); color: var(--color-muted); white-space: nowrap; padding-top: 0.2em; font-variant-numeric: tabular-nums; }
+.snypd-ledger-empty { color: var(--color-muted); }
+.snypd-home-list .snypd-ledger-text { display: none; }
+.snypd-home-more { font-size: var(--size-small); }
+
+/* ── 6. The close, and the footer under it. One declaration each: `color-scheme: dark` over the same
+   `light-dark()` pairs, so every colour inside — the heading, the muted line, the button, which turns
+   white — is the token it was, read from its other half, and the contrast gate has already read it. */
+.snypd-close { color-scheme: dark; background: var(--color-bg); color: var(--color-text); border-top: 0; }
+.snypd-close > h2 { max-width: 12ch; }
+.snypd-close > pre { background: none; padding: 0; border-radius: 0; font-size: 1rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.snypd-close .snypd-cta { border-top: 0; padding-top: 0; margin-block: var(--space-4) 0; }
+.snypd-close .snypd-cta > p:first-child { font: inherit; letter-spacing: 0; }
+.snypd-close .snypd-cta > p:first-child, .snypd-close .snypd-cta > p:nth-child(2) { color: var(--color-muted); margin-top: 0; }
+
+body > footer.snypd-folio-footer {
+  color-scheme: dark; background: var(--color-bg); color: var(--color-muted);
+  border-top: 1px solid var(--color-border); padding: var(--space-5) var(--edge);
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-3) var(--space-4);
+  font-size: var(--size-small);
+}
+body > footer.snypd-folio-footer p { margin: 0; }
+body > footer.snypd-folio-footer a { color: inherit; text-decoration: none; }
+body > footer.snypd-folio-footer a:hover, body > footer.snypd-folio-footer a[aria-current="page"] { color: var(--color-text); }
+body > footer.snypd-folio-footer :is(.snypd-footer-note, .snypd-status-right) a { text-decoration: underline; }
+body > footer.snypd-folio-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2) 1.25rem; }
+body > footer.snypd-folio-footer li { margin: 0; }
+
+/* ── 7. The runtime pass (U7, docs/14): `base`'s sheet makes the menu, the lightbox, the accordion and the
+   footnote card work; this is how they read here. */
+.snypd-menu-button { font: 500 var(--size-small) / 1.2 var(--font-display); color: var(--color-text); border-color: color-mix(in oklab, var(--color-text) 22%, var(--color-bg)); border-radius: calc(var(--radius) - 1px); padding: 0.5rem 0.875rem; }
+#snypd-menu:popover-open { color: var(--color-text); background: var(--color-bg); font-size: var(--size-body); border-top: 1px solid var(--color-border); }
+#snypd-menu:popover-open a { font-size: var(--size-body); }
+#snypd-menu:popover-open a[rel~="external"] { justify-self: start; }
+.snypd-lightbox-close { font: 500 var(--size-small) / 1 var(--font-display); color: var(--color-text); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); }
+.snypd-fnref .snypd-fn-card { color: var(--color-text); background: var(--color-bg); border-color: var(--color-border); border-radius: var(--radius); font-family: var(--font-body); }
+::view-transition-group(.snypd-title) { animation-duration: 240ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1); }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
+
+/* ── 8. Tier B, under `@supports`: the count-up on a stat (the studio's device, docs/17 §3). `@property`
+   makes `--n` an integer the view timeline can drive; the renderer sets it inline from the stat's own
+   value (stat.tsx) and a `::before` counts up to it, painted over the real text, which stays in the DOM.
+   Once the count has run the overlay steps aside. Under reduced motion, the numbers as written. */
+@supports (animation-timeline: view()) {
+  @property --n { syntax: "<integer>"; initial-value: 0; inherits: true; }
+  .snypd-stat-value[data-n] { position: relative; }
+  .snypd-stat-value[data-n]::before {
+    content: counter(n) attr(data-unit) / "";
+    counter-reset: n var(--n);
+    position: absolute; inset: 0; background: var(--color-bg); pointer-events: none;
+    animation: snypd-count linear both, snypd-uncover linear both;
+    animation-timeline: view(); animation-range: entry 0% entry 45%, entry 45% entry 46%;
+  }
+  @keyframes snypd-count { from { --n: 0; } }
+  @keyframes snypd-uncover { to { visibility: hidden; } }
+}
+@supports (text-box: trim-both cap alphabetic) { .snypd-stat-value, .snypd-stat-value[data-n]::before { text-box: trim-both cap alphabetic; } }
+@media (prefers-reduced-motion: reduce) { .snypd-stat-value[data-n]::before { content: none; animation: none; } }
+
+/* ── 9. The fold (docs/25 §2): at 47.5 rem two columns are one, heading first — the mockup's own 760 px.
+   Numbers stack; the refusal's link drops under its line; the masthead's gaps tighten. */
+@media (max-width: 47.5rem) {
+  .snypd-band { grid-template-columns: minmax(0, 1fr); }
+  .snypd-band > *, .snypd-band > h2 { grid-column: 1; grid-row: auto; }
+  .snypd-band > h2 { margin-bottom: var(--space-4); max-width: 18ch; }
+  .snypd-band > h2 + * { margin-top: 0; }
+  .snypd-lead > * { grid-column: 1; }
+  .snypd-lead > pre { padding: var(--space-3); white-space: pre-wrap; }
+  /* A value does not wrap, so a row of three stacks here too, in a band or in a post: `510 tokens` is wider than a third of a phone. */
+  .snypd-stat-row[data-count] { grid-template-columns: 1fr; gap: var(--space-4); }
+  .snypd-band > ul > li { padding-right: 0; }
+  .snypd-band > ul > li > a:last-child { position: static; display: block; margin-top: var(--space-1); }
+  body > header nav ul { gap: var(--space-2) 1.125rem; }
+  .snypd-ledger-row { grid-template-columns: minmax(0, 1fr); }
+  .snypd-ledger-when { padding-top: 0; }
+}
