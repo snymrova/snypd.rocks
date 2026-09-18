@@ -1,0 +1,25 @@
+# public — snypd.rocks's own theme: the launch look, a site built in public (S31, docs/23).
+#
+# Not a fifth bundled theme. This directory lives in the site's `themes/`, the loader finds it first
+# (site.ts), and `extends: studio` walks up to the bundled one by name — so the bands, the display face
+# at 33 KB, the masthead, the cards and the wordmark footer are inherited, and this file adds only what
+# the story needs: a front page with a band per dated type (`LayoutProps.lists`, decision 200), a
+# session-log entry, a release, and the log's archive as rows rather than cards. Held to the same gate:
+# `snypd check theme public --root=sites/snypd.rocks` runs the eighteen rules over it.
+#
+# Named `public`, not `launch`: the site keeps building in public after 6 October.
+theme: public
+version: 0.1.0
+spec: ^1
+extends: studio
+css: ./theme.css
+# Arrays replace up the chain (theme.ts): the six, `home`, and the three of this theme's own. `work` and
+# `work-index` are the studio's and not restated — this site declares no `work`.
+layouts: [post, page, index, term, author, home, release, log, log-index]
+# One part of its own: the ledger — a dated type as rows, one line each, which the front page and the
+# log's archive share. Parts merge up the chain, so the studio's masthead, cards and footer stand.
+parts:
+  ledger: ./parts/ledger.tsx
+personality: >-
+  The studio look, turned on the site that makes it: the front page is a ledger of what shipped, what
+  was decided and what the gate refused, each band a type the build lists. Zero JS, same eighteen rules.

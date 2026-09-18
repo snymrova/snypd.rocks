@@ -4,20 +4,49 @@ snypd: 1
 
 site:
   name: "snypd.rocks"
-  url: "https://snypd.rocks" # placeholder — the feed, sitemap and JSON-LD are absolute, so publishing needs the real one
+  url: "https://snypd.rocks"
   description: "Your CMS is wherever your agent is: a CMS an agent can actually use — markdown in your repo, static HTML out, zero JS."
 
+# The launch look (docs/23): the site's own theme in `themes/public/`, one line over the bundled studio.
+# The loader looks here first; `snypd check theme public --root=.` holds it to the same eighteen rules.
 theme:
-  use: editorial
+  use: public
   settings:
-    tagline: Publish a website from the harness you already have open.
+    bands: dark-first
+    dateFormat: short
+    footerNote: "Built in public, through snypd's own MCP server. Source, spec and every benchmark are [on GitHub](https://github.com/snymrova/snypd); MIT."
+
+# The registry (docs/20), on the site that ships it. `log` is the session log made public: one entry per
+# session, written by the agent at the session's end through the MCP, filed under what kind of thing the
+# session was. `release` comes from the changelog plugin below, one file and no code.
 types:
   author:
     layout: author
+  # The plugin's `release` extends `post` and so inherits `layout: post`; this theme draws one of its own.
+  release:
+    layout: release
+  log:
+    extends: post
+    dir: content/log
+    urlPattern: /log/{slug}
+    layout: log
+    taxonomies: [kind]
+    fields:
+      session:   { type: string, required: true, description: "The session log's own name for it — S29 · R4 (docs/11 §7b)" }
+      pr:        { type: string, description: "The pull request, when one carried it — #30" }
+      decisions: { type: list, of: { type: number }, description: "The docs/11 §8 numbers this session added" }
+      kind:      { type: list, of: { type: ref, to: kind }, description: "What the session was: shipped, decided, refused, measured" }
 
-# Plugins (docs/10 §4.8): bundled, no install. `autolink` links the first mention of a category or tag to its
-# archive; `indexnow` emits /indexnow/<key>.txt and tells Bing, Yandex, Seznam and Naver which pages a push
-# changed. The key is a claim, not a secret. Both need a release that carries them (0.1.4+) on the host's build.
+taxonomies:
+  kind:
+    attaches: [log]
+    urlPattern: /kind/{term}
+
+# Plugins (docs/10 §4.8): bundled, no install. `changelog` declares the `release` type and the `product`
+# taxonomy — a changelog at /changelog/{slug} with no code; `autolink` links the first mention of a term to
+# its archive; `indexnow` emits /indexnow/<key>.txt and tells Bing, Yandex, Seznam and Naver which pages a
+# push changed. The key is a claim, not a secret. All three need a release that carries them on the host's build.
 plugins:
+  - changelog
   - autolink
   - indexnow: { key: 5ecb670b62f4978b94154dc09878ea1e }

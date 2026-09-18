@@ -1,8 +1,8 @@
 # The header menu (docs/09 §4.3). `ref` is a route or type/slug, resolved at build; `url` is verbatim.
-- { label: "Home", ref: "/" }
+# The first archive here is the one the front page's entries come from (decision 195): the log.
+- { label: "Log", ref: "/log" }
+- { label: "Changelog", ref: "/changelog" }
 - { label: "Posts", ref: "/posts" }
-- { label: "Why MCP", ref: "post/why-mcp-is-the-only-interface" }
 - { label: "Themes", ref: "page/themes" }
-- { label: "Plugins", ref: "page/plugins" }
 - { label: "Bench", ref: "page/bench" }
 - { label: "GitHub", url: "https://github.com/snymrova/snypd", rel: "external" }

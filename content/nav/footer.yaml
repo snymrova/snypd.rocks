@@ -1,4 +1,6 @@
 # The footer menu (docs/09 §4.3). `ref` is a route or type/slug, resolved at build; `url` is verbatim.
+- { label: "Why MCP", ref: "post/why-mcp-is-the-only-interface" }
+- { label: "Plugins", ref: "page/plugins" }
 - { label: "Feed", url: "/feed.xml" }
 - { label: "llms.txt", url: "/llms.txt" }
 - { label: "npm", url: "https://www.npmjs.com/package/@snypd/cli", rel: "external" }
