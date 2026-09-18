@@ -1,7 +1,7 @@
 ---
 title: "The product look: chosen on a picture, then written as a theme"
 date: 2026-09-18
-status: draft
+status: published
 description: "snypd.rocks wears folio: a light page with one big sentence, a heading beside every section, one webfont at one weight. The look was picked from a mockup before the brief."
 author: sunny
 session: S34
