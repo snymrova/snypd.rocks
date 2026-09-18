@@ -42,7 +42,7 @@ Long-form reading. One serif column at a comfortable measure, generous leading, 
 
 ## technical
 
-Reference. A wide measure for scanning, mono headings and chrome, a contents list built from the heading tree, and tables and code blocks that take the width they need. Figures, charts, diagrams and flows break out as they do everywhere. No webfont, so its font budget is 0 and it meets it. Zero JS. The look this site is wearing, `console`, extends it: the same bones in a window, one mono face, a prompt for a headline.
+Reference. A wide measure for scanning, mono headings and chrome, a contents list built from the heading tree, and tables and code blocks that take the width they need. Figures, charts, diagrams and flows break out as they do everywhere. No webfont, so its font budget is 0 and it meets it. Zero JS.
 
 ::figure{src="/media/gallery/technical-graphite-1280.png" alt="The technical theme in its graphite look: a light neutral page with a monospaced headline, a blue category label, a slash-separated masthead and a Contents panel listing the page's headings" caption="**graphite** — cool neutral, one blue, follows the reader's light or dark: the theme as written. `variation: graphite`" width="wide"}
 
@@ -53,6 +53,12 @@ Reference. A wide measure for scanning, mono headings and chrome, a contents lis
 Unstyled. Semantic HTML only, one class per primitive (`snypd-<name>`), so a child theme styles it without touching markup. It is what every other theme extends and what a site gets with no `theme:` at all — listed here because it is a real theme that passes the same check, not because anyone should ship it.
 
 ::figure{src="/media/gallery/base-1280.png" alt="The base theme: browser-default typography, a black serif headline, a wide cover block, unstyled links — the semantic HTML every other theme styles" caption="**base** — no variations; its one look is its defaults. `use: base`" width="wide"}
+
+## The look this site wears
+
+`folio` is not on the shelf: it lives in this site's own `themes/` directory, over `base`, and the loader finds it there first. A light page with one big sentence; every section a heading on the left and its content on the right, one hairline between sections, a dark band to close. One webfont at one weight, 18 KB against the 40 the lane allows, for what is set; the system faces for what is read. It was chosen on a picture before a line of it was written, and it passes the same check as the four above: `snypd check theme folio --root=.`
+
+::figure{src="/media/gallery/folio-1280.png" alt="The folio theme on this site's front page: a light ground, a very large medium-weight sans headline in three lines reading A CMS with no dashboard, your agent writes it, a dark rounded button under it, and a plain header with an outlined GitHub button" caption="**folio** — site-local, light, one face at one weight. Not bundled; a second site that wants it would make it the fifth." width="wide"}
 
 ## Make one
 
