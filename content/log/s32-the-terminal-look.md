@@ -2,7 +2,7 @@
 title: "The terminal look: the site in the window the agent lives in"
 date: 2026-09-18
 status: published
-description: "snypd.rocks gets a theme of its own — console, over technical: a window for a hero, a prompt for a headline, the log as one-line rows — and the front page loses half its words."
+description: "snypd.rocks gets its own theme, console, over technical: a window for a hero, a prompt for a headline, the log as rows; the front page loses half its words."
 author: sunny
 session: "S32"
 decisions: [202, 203, 204, 205]

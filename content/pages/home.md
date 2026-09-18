@@ -5,11 +5,24 @@ description: "snypd is a CMS with no dashboard. Claude Code, Cursor or Codex wri
 home: true
 ---
 
-::cover{eyebrow="Launching 6 October 2026" subtitle="No dashboard. Your agent writes; markdown in a repo you own; static HTML out, zero JavaScript."}
+::cover{eyebrow="Launching 6 October 2026" subtitle="A CMS with no dashboard. Claude Code, Cursor or Codex writes; markdown in a repo you own; static HTML out, zero JavaScript."}
+
+```
+$ mkdir field-notes && cd field-notes
+$ bunx @snypd/cli init
+$ claude
+❯ Write me a first post.
+```
 
 :::tldr
-This site is the proof: every page on it was written through snypd's own MCP server, and the log below is the build as it happened.
+This site is the proof: every page on it was written through snypd's own MCP server, and the log is the build as it happened.
 :::
+
+## The front door
+
+::figure{src="/media/front-door.mp4" poster="/media/front-door-poster.png" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="The four lines, run. A real session, the waits folded." width="wide"}
+
+The scaffold writes the site, commits it, and drops an `.mcp.json`; any agent that reads one is the interface. Four themes, seven looks, one gate: [the shelf](/themes/).
 
 ## The numbers
 
@@ -20,12 +33,6 @@ This site is the proof: every page on it was written through snypd's own MCP ser
 :::
 
 Sixty rows in CI on every push, thirty-three of them budgets that fail the build. [Every number, with its row](/bench/).
-
-## The front door
-
-::figure{src="/media/front-door.mp4" poster="/media/front-door-poster.png" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="`mkdir field-notes && cd field-notes` · `bunx @snypd/cli init` · `claude` · *Write me a first post.* A real session, the waits folded." width="wide"}
-
-Four lines. The scaffold writes the site, commits it, and drops an `.mcp.json`; any agent that reads one is the interface. Four themes, seven looks, one gate: [the shelf](/themes/).
 
 ## Refused
 
@@ -39,4 +46,11 @@ The gate is a machine, and it says no:
 
 ## Try it
 
-::cta{title="Four lines to a first post" body="The source, the spec and every benchmark are on GitHub, MIT." button="Install from npm" href="https://www.npmjs.com/package/@snypd/cli"}
+```
+$ mkdir field-notes && cd field-notes
+$ bunx @snypd/cli init
+$ claude
+❯ Write me a first post.
+```
+
+::cta{title="Four lines to a first post" body="What each line does, what you need first, and what the agent does on the far side. The source, the spec and every benchmark are on GitHub, MIT." button="Start here" href="/start/"}

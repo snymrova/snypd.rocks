@@ -1,5 +1,5 @@
 ---
-title: "What the harness did while I watched"
+title: "What the agent did while I watched"
 date: 2026-10-06
 status: draft
 description: "snypd is on Product Hunt today. What it is in one paragraph, the four-line front door, what it kept from WordPress and refused, three numbers, and what is next."
@@ -15,16 +15,16 @@ snypd is a CMS whose only interface is your AI agent. You write, edit, theme and
 
 ## What it is
 
-A month ago this was a question: what does a CMS look like when the only way in is the harness you already have open? The answer turned out to be one Bun binary that speaks MCP over stdio. It holds the server, the renderer, the spec, three themes, four plugins and SQLite, and it exposes seven verbs, none of which writes content. The agent writes: markdown plus thirteen typed blocks, on a drafts branch, and a person approves what lands. The build writes semantic HTML, a `.md` twin beside every page for the next agent that reads it, a feed, a sitemap, JSON-LD and `llms.txt`, and every chart, diagram and flow on the page is SVG the build drew from YAML.
+A month ago this was a question: what does a CMS look like when the only way in is the agent you already have open? The answer turned out to be one Bun binary that speaks MCP over stdio. It holds the server, the renderer, the spec, three themes, four plugins and SQLite, and it exposes seven verbs, none of which writes content. The agent writes: markdown plus thirteen typed blocks, on a drafts branch, and a person approves what lands. The build writes semantic HTML, a `.md` twin beside every page for the next agent that reads it, a feed, a sitemap, JSON-LD and `llms.txt`, and every chart, diagram and flow on the page is SVG the build drew from YAML.
 
 :::steps{title="The whole front door" time="2 min"}
 1. **Make a directory** — `mkdir field-notes && cd field-notes`
 2. **Scaffold it** — `bunx @snypd/cli init` writes the site, git-inits it, commits, and drops an `.mcp.json`.
-3. **Open your harness** — `claude`, or Cursor, or Codex: anything that reads `.mcp.json`.
+3. **Open your agent** — `claude`, or Cursor, or Codex: anything that reads `.mcp.json`.
 4. **Say it** — *"Write me a first post."*
 :::
 
-::figure{src="/media/front-door.mp4" poster="/media/front-door-poster.png" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="One command, then the harness: a site, a post, a build. A real session, the waits folded." width="wide"}
+::figure{src="/media/front-door.mp4" poster="/media/front-door-poster.png" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="One command, then the agent: a site, a post, a build. A real session, the waits folded." width="wide"}
 
 ## What it kept from WordPress, and what it refused
 
@@ -38,7 +38,7 @@ Every commenter will make the comparison, so here it is first and precisely. Wor
 | The plugin directory | One place to find things | npm is the registry; this site lists, never hosts |
 | The dashboard | Live preview beside the control | Declined. The agent is the interface, the Desk is the review, and the page ships no script |
 
-Refused, and named: the database (a git repo), the dashboard (your harness), the registry (npm), hook priorities (the order of a list), and every byte of default JavaScript.
+Refused, and named: the database (a git repo), the dashboard (your agent), the registry (npm), hook priorities (the order of a list), and every byte of default JavaScript.
 
 ## Three numbers
 

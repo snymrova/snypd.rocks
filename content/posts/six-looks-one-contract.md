@@ -13,6 +13,10 @@ tags:
 Every theme snypd ships is a `theme.yaml` and one stylesheet on top of `base`, which renders the markup and styles nothing. A theme declares tokens, parts, menus, settings and named looks; a site picks a look with one word; and `snypd check theme` runs seventeen rules before anything is listed on the shelf. Three themes and six looks pass today, with zero JavaScript and zero accessibility violations at both widths, and the ones that move do it in CSS.
 :::
 
+:::callout{kind="note" title="Since this was written"}
+Four themes and seven looks pass today: `studio`, the agency look, joined the shelf on 18 September, and the rule count is eighteen. The numbers below are the 17 September ones, left as they were; [the shelf](/themes/) has the current count.
+:::
+
 ## The contract, not the theme
 
 The first theme on this site was written by hand and the second was going to be a fork of it. That is how every theme ecosystem starts and how every one of them ends up with a thousand copies of the same header. So the second theme was refused until the first could be described as a contract that a second could be built *from*, and the sessions since have been that description, one key at a time.

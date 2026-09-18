@@ -55,6 +55,8 @@ taxonomies:
 plugins:
   - changelog
   # `kind`'s terms are ordinary verbs (refused, decided); linked mid-sentence they read as accidents, so
-  # autolink is told which taxonomies are names.
-  - autolink: { taxonomies: [tag, category, product] }
+  # autolink is told which taxonomies are names. `minLength: 4` keeps three-letter acronyms — MCP, the tag —
+  # out of it: the front page's first link was the summary's "MCP" to a tag archive, which is not where a
+  # newcomer's first click should go. A term of four letters or more still links on first mention.
+  - autolink: { taxonomies: [tag, category, product], minLength: 4 }
   - indexnow: { key: 5ecb670b62f4978b94154dc09878ea1e }

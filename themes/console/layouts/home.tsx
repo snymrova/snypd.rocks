@@ -2,8 +2,10 @@ import { menu, part, settingFlag, Slot, type LayoutProps, type Html } from "@sny
 
 /**
  * The front page as a transcript (docs/24 §5). The hero is the window: the page's cover — eyebrow,
- * headline as the prompt, subtitle, the clip when the cover has one — inside a drawn frame, and the
- * lead (the `tldr`) as the first output under it. Every `##` section is a turn: the heading as a prompt
+ * headline as the prompt, subtitle, the clip when the cover has one — and the lead as the output under
+ * the prompt, inside one drawn frame (S33: the lead is the four lines and the `tldr`, and a command
+ * outside the window read as a caption; the frame is a `div` the layout owns, so the cover stays the
+ * primitive's). Every `##` section is a turn: the heading as a prompt
  * line, the body as output. Then every list the build hands it (`LayoutProps.lists`, decision 200) in
  * the order the header menu links them — the log, the changelog, the posts — each as the ledger's rows.
  * The last `##` section, the `cta`, is drawn after the lists so the page ends on the ask.
@@ -33,9 +35,11 @@ export default function Home({ ctx, page, lists = [], route, title, description,
       <main class="snypd-home" data-caret={caret ? "" : undefined}>
         <article class="snypd-page">
           <section class="snypd-band snypd-hero">
-            {p.cover ?? <header class="snypd-cover"><h1>{p.title}</h1></header>}
-            <Slot name="before-content" ctx={ctx} route={route} title={title} page={p} />
-            {lead}
+            <div class="snypd-window">
+              {p.cover ?? <header class="snypd-cover"><h1>{p.title}</h1></header>}
+              <Slot name="before-content" ctx={ctx} route={route} title={title} page={p} />
+              {lead}
+            </div>
           </section>
           {body.map(turn)}
         </article>

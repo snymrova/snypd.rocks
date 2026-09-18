@@ -33,18 +33,23 @@ main.snypd-home { display: block; padding: 0; }
 .snypd-band > .snypd-figure[data-width="full"] { grid-column: full; }
 .snypd-band > h2 { margin-top: 0; }
 
-/* ── 2. The window. The hero band has no rule above it; its cover is the frame — the surface colour,
-   one hairline, the radius — with a title bar drawn by `::before` (three dots in the border colour) that
-   carries no text, so the `.md` twin and axe never meet it. The eyebrow is the window's first muted
-   line, the headline the prompt, the subtitle the line typed under it, the clip (when the cover has one)
-   the window's body. The lead — the `tldr` — is the first output, under the window. */
+/* ── 2. The window. The hero band has no rule above it; the layout's `.snypd-window` is the frame — the
+   surface colour, one hairline, the radius — with a title bar drawn by `::before` (three dots in the
+   border colour) that carries no text, so the `.md` twin and axe never meet it. Inside it, the cover:
+   the eyebrow as the window's first muted line, the headline the prompt, the subtitle the line typed
+   under it, the clip (when the cover has one) the window's body. Then the lead as the output (S33):
+   the four lines as a code block with no slab of its own — a transcript inside a window is not a
+   quotation — and the `tldr` as the first block of prose. */
 .snypd-hero { border-top: 0; padding-top: var(--space-4); }
-.snypd-hero > .snypd-cover {
-  margin: 0; position: relative;
+.snypd-hero > .snypd-window {
+  position: relative; max-width: none;
   background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius);
   padding: calc(2.25rem + var(--space-4)) var(--space-4) var(--space-4);
 }
-.snypd-hero > .snypd-cover::before {
+.snypd-hero .snypd-cover { margin: 0; }
+.snypd-window > pre { background: none; border: 0; padding: 0; margin-top: var(--space-4); font-size: var(--size-body); line-height: 1.7; max-width: none; white-space: pre-wrap; overflow-wrap: anywhere; }
+.snypd-window > pre + .snypd-tldr, .snypd-window > .snypd-cover + .snypd-tldr { margin-top: var(--space-4); }
+.snypd-hero > .snypd-window::before {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 2.25rem;
   border-bottom: 1px solid var(--color-border);
   background:
@@ -58,7 +63,7 @@ main.snypd-home { display: block; padding: 0; }
 .snypd-hero .snypd-subtitle { color: var(--color-text); opacity: 0.85; font-size: var(--size-h3); max-width: 40rem; margin-top: var(--space-3); }
 .snypd-hero .snypd-cover-media { margin-top: var(--space-4); border-radius: var(--radius); background: var(--color-bg); }
 .snypd-hero .snypd-tldr { margin-block: var(--space-3) 0; max-width: var(--measure); }
-@media (max-width: 40rem) { .snypd-hero > .snypd-cover { padding-inline: var(--space-3); } }
+@media (max-width: 40rem) { .snypd-hero > .snypd-window { padding-inline: var(--space-3); } }
 
 /* ── 3. The caret and the typed line (decision 204): the two motions this theme adds, on the hero only,
    and only when the layout says `data-caret` (the `caret` setting). The caret is a pseudo-element with
