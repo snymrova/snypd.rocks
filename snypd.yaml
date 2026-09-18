@@ -6,15 +6,21 @@ site:
   name: "snypd.rocks"
   url: "https://snypd.rocks"
   description: "Your CMS is wherever your agent is: a CMS an agent can actually use — markdown in your repo, static HTML out, zero JS."
+  # The card every share and every search result shows: 1200 × 630, the studio look, drawn once
+  # (content/media/og.png). A page with a `cover.image` shares that instead.
+  image: /media/og.png
 
-# The launch look (docs/23): the site's own theme in `themes/public/`, one line over the bundled studio.
-# The loader looks here first; `snypd check theme public --root=.` holds it to the same eighteen rules.
+# The terminal look (docs/24, decision 202): the site's own theme in `themes/console/`, over the bundled
+# technical. The loader looks here first; `snypd check theme console --root=.` holds it to the same
+# eighteen rules.
 theme:
-  use: public
+  use: console
   settings:
-    bands: dark-first
+    tagline: "a CMS your agent can actually use"
+    repo: https://github.com/snymrova/snypd
     dateFormat: short
     footerNote: "Built in public, through snypd's own MCP server. Source, spec and every benchmark are [on GitHub](https://github.com/snymrova/snypd); MIT."
+    statusNote: "0 KB JS · 18 rules · [every number](/bench/)"
 
 # The registry (docs/20), on the site that ships it. `log` is the session log made public: one entry per
 # session, written by the agent at the session's end through the MCP, filed under what kind of thing the
@@ -48,5 +54,7 @@ taxonomies:
 # push changed. The key is a claim, not a secret. All three need a release that carries them on the host's build.
 plugins:
   - changelog
-  - autolink
+  # `kind`'s terms are ordinary verbs (refused, decided); linked mid-sentence they read as accidents, so
+  # autolink is told which taxonomies are names.
+  - autolink: { taxonomies: [tag, category, product] }
   - indexnow: { key: 5ecb670b62f4978b94154dc09878ea1e }

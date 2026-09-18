@@ -1,8 +1,8 @@
 # The header menu (docs/09 §4.3). `ref` is a route or type/slug, resolved at build; `url` is verbatim.
 # The first archive here is the one the front page's entries come from (decision 195): the log.
+# GitHub is the masthead's `src` link (the console theme's `repo` setting) and the footer's; not twice up top.
 - { label: "Log", ref: "/log" }
 - { label: "Changelog", ref: "/changelog" }
 - { label: "Posts", ref: "/posts" }
 - { label: "Themes", ref: "page/themes" }
 - { label: "Bench", ref: "page/bench" }
-- { label: "GitHub", url: "https://github.com/snymrova/snypd", rel: "external" }

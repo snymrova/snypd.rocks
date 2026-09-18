@@ -1,5 +1,5 @@
 ---
-title: "The registry, part two: Ferrule declares `work`"
+title: "The registry, part two: Ferrule declares work"
 date: 2026-09-18
 status: published
 description: "The studio specimen declares a work type with two taxonomies in fifteen lines of YAML; six cases move, eight redirects, and lint's newest rule earns its keep."

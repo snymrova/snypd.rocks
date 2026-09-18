@@ -1,9 +1,9 @@
 import { formatDate, part, settingText, Slot, type LayoutProps, type Html } from "@snypd/render";
 
 /**
- * The log's archive (S31, docs/23 §4): the build prefers `<type>-index` when a theme declares it. The
- * ledger's rows under the archive's title — the menu's word for it — and one line that says what the
- * ledger holds: how many sessions, and the days they span, read from the entries and never typed.
+ * The log's archive (docs/24 §4): the build prefers `<type>-index` when a theme declares it. One prompt
+ * line — the menu's word for the archive — one line that says what the ledger holds (how many sessions,
+ * the days they span, read from the entries and never typed), then the rows.
  */
 export default function LogIndex({ ctx, entries, route, title, jsonLd }: LayoutProps): Html {
   const Shell = part(ctx, "shell"), Ledger = part(ctx, "ledger");
