@@ -18,11 +18,15 @@ $ claude
 ## What each line does
 
 :::steps{title="The four lines"}
-1. **A directory** — `mkdir field-notes && cd field-notes`. The site is named after it unless you say otherwise; `init --name=…` and `--url=…` do.
-2. **The scaffold** — `bunx @snypd/cli init` writes the smallest `snypd.yaml` that loads, the `content/` directories, a `.gitignore`, and an `.mcp.json` that points your agent at snypd's MCP server. In an empty directory it runs `git init` too, and it commits the scaffold, so the site has a history before it has a post. `--deploy=cloudflare` or `--deploy=vercel` adds the host's half: the build command and `dist/`.
-3. **Your agent** — `claude`, or open the directory in Cursor or Codex. Any agent that reads an `.mcp.json` finds seven tools and the site's resources on its first turn; there is nothing to install on the agent's side and no account to make.
-4. **One sentence** — *Write me a first post.* The agent writes markdown on a drafts branch, builds, and shows you the page. You approve what lands on `main`; the host builds `main`. That is the whole loop, and [the front door clip](/#the-front-door) is a real one.
+1. **A directory.** `mkdir field-notes && cd field-notes` — the site is named after it.
+2. **The scaffold.** `bunx @snypd/cli init` writes the config, the content folders and an `.mcp.json`, and commits them.
+3. **Your agent.** `claude`, or the directory open in Cursor or Codex. Anything that reads an `.mcp.json` is the interface.
+4. **One sentence.** *Write me a first post.* It writes on a drafts branch, builds, and shows you the page. You approve what lands.
 :::
+
+## What `init` takes
+
+`init --name=…` and `--url=…` name the site when the directory's name will not do. In an empty directory it runs `git init` too, so the site has a history before it has a post. `--deploy=cloudflare` or `--deploy=vercel` adds the host's half: the build command and `dist/`. On the agent's side there is nothing to install and no account to make: it finds seven tools and the site's resources on its first turn. You approve what lands on `main`, and the host builds `main`. That is the whole loop, and the clip on [the front page](/) is a real one.
 
 ## What it refuses to be
 
