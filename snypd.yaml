@@ -9,6 +9,7 @@ site:
   # The card every share and every search result shows: 1200 × 630, the hero of the product look, drawn
   # once (content/media/og.png). A page with a `cover.image` shares that instead.
   image: /media/og.png
+  icon: /media/icon.svg
 
 # The product look (docs/25, decision 207): the site's own theme in `themes/folio/`, over the bundled
 # base. The loader looks here first; `snypd check theme folio --root=.` holds it to the same eighteen
@@ -37,16 +38,16 @@ types:
     dir: content/log
     urlPattern: /log/{slug}
     layout: log
-    taxonomies: [kind]
+    taxonomies: [ kind ]
     fields:
-      session:   { type: string, required: true, description: "The session log's own name for it — S29 · R4 (docs/11 §7b)" }
-      pr:        { type: string, description: "The pull request, when one carried it — #30" }
+      session: { type: string, required: true, description: "The session log's own name for it — S29 · R4 (docs/11 §7b)" }
+      pr: { type: string, description: "The pull request, when one carried it — #30" }
       decisions: { type: list, of: { type: number }, description: "The docs/11 §8 numbers this session added" }
-      kind:      { type: list, of: { type: ref, to: kind }, description: "What the session was: shipped, decided, refused, measured" }
+      kind: { type: list, of: { type: ref, to: kind }, description: "What the session was: shipped, decided, refused, measured" }
 
 taxonomies:
   kind:
-    attaches: [log]
+    attaches: [ log ]
     urlPattern: /kind/{term}
 
 # Plugins (docs/10 §4.8): bundled, no install. `changelog` declares the `release` type and the `product`
@@ -59,5 +60,5 @@ plugins:
   # autolink is told which taxonomies are names. `minLength: 4` keeps three-letter acronyms — MCP, the tag —
   # out of it: the front page's first link was the summary's "MCP" to a tag archive, which is not where a
   # newcomer's first click should go. A term of four letters or more still links on first mention.
-  - autolink: { taxonomies: [tag, category, product], minLength: 4 }
+  - autolink: { taxonomies: [ tag, category, product ], minLength: 4 }
   - indexnow: { key: 5ecb670b62f4978b94154dc09878ea1e }
