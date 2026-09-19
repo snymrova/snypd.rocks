@@ -321,7 +321,8 @@ body > footer.snypd-folio-footer li { margin: 0; }
 .snypd-lightbox-close { font: 500 var(--size-small) / 1 var(--font-display); color: var(--color-text); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); }
 .snypd-fnref .snypd-fn-card { color: var(--color-text); background: var(--color-bg); border-color: var(--color-border); border-radius: var(--radius); font-family: var(--font-body); }
 ::view-transition-group(.snypd-title) { animation-duration: 240ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1); }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
+/* No crossfade between pages (S36): the page swaps at once, and only the title glides into place. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 
 /* ── 8. Tier B, under `@supports`: the count-up on a stat (the studio's device, docs/17 §3). `@property`
    makes `--n` an integer the view timeline can drive; the renderer sets it inline from the stat's own
