@@ -6,11 +6,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* Cross-document view transitions: a cross-fade between pages with zero JavaScript, and a browser
-   without them navigates as before (docs/11 §5.3). Nothing animates for a reader who asked for that. */
-@view-transition { navigation: auto; }
+/* No view transition between pages (Sunny, 19 Sep 2026: "pages should open instantly"). A cross-document
+   transition holds the old page frozen until the new one is drawn and snapshotted, then animates — even
+   with the crossfade off and only the title morphing, that hold reads as loading. The next page is
+   prerendered, so it is simply swapped in. Nothing animates for a reader who asked for that. */
 @media (prefers-reduced-motion: reduce) {
-  @view-transition { navigation: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
@@ -320,9 +320,6 @@ body > footer.snypd-folio-footer li { margin: 0; }
 #snypd-menu:popover-open a[rel~="external"] { justify-self: start; }
 .snypd-lightbox-close { font: 500 var(--size-small) / 1 var(--font-display); color: var(--color-text); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); }
 .snypd-fnref .snypd-fn-card { color: var(--color-text); background: var(--color-bg); border-color: var(--color-border); border-radius: var(--radius); font-family: var(--font-body); }
-::view-transition-group(.snypd-title) { animation-duration: 240ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1); }
-/* No crossfade between pages (S36): the page swaps at once, and only the title glides into place. */
-::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 
 /* ── 8. Tier B, under `@supports`: the count-up on a stat (the studio's device, docs/17 §3). `@property`
    makes `--n` an integer the view timeline can drive; the renderer sets it inline from the stat's own
