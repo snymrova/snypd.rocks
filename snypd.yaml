@@ -18,7 +18,7 @@ theme:
   use: folio
   settings:
     logo: /media/snypd-wordmark.svg
-    heroLabel: "Start in four lines"
+    heroLabel: "Start in one line"
     heroHref: /start/
     dateFormat: short
     footerNote: "snypd.rocks · built in public, through its own MCP server · MIT"
