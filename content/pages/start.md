@@ -1,7 +1,7 @@
 ---
 title: Start
 status: published
-description: "One line, one sentence, one click: from an empty terminal to a live URL. What the line does, what you need first, what `init` writes, and what happens on the far side."
+description: "One line, one sentence, one click: from an empty terminal to a live URL. What the line does, what you need first, and what happens on the far side."
 ---
 
 :::tldr
