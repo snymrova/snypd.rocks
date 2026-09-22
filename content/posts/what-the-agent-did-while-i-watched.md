@@ -2,7 +2,7 @@
 title: "What the agent did while I watched"
 date: 2026-10-06
 status: draft
-description: "snypd is on Product Hunt today. What it is in one paragraph, the four-line front door, what it kept from WordPress and refused, three numbers, and what is next."
+description: "snypd is on Product Hunt today: what it is, the front door that ends on a live URL, what it kept from WordPress and refused, three numbers, and what is next."
 author: sunny
 category: building-in-public
 tags:
@@ -18,13 +18,14 @@ snypd is a CMS whose only interface is your AI agent. You write, edit, theme and
 A month ago this was a question: what does a CMS look like when the only way in is the agent you already have open? The answer turned out to be one Bun binary that speaks MCP over stdio. It holds the server, the renderer, the spec, three themes, four plugins and SQLite, and it exposes seven verbs, none of which writes content. The agent writes: markdown plus thirteen typed blocks, on a drafts branch, and a person approves what lands. The build writes semantic HTML, a `.md` twin beside every page for the next agent that reads it, a feed, a sitemap, JSON-LD and `llms.txt`, and every chart, diagram and flow on the page is SVG the build drew from YAML.
 
 :::steps{title="The whole front door" time="2 min"}
-1. **Make a directory** — `mkdir field-notes && cd field-notes`
-2. **Scaffold it** — `bunx @snypd/cli init` writes the site, git-inits it, commits, and drops an `.mcp.json`.
-3. **Open your agent** — `claude`, or Cursor, or Codex: anything that reads `.mcp.json`.
-4. **Say it** — *"Write me a first post."*
+1. **Type one line** — `bunx @snypd/cli init my-site && cd my-site && claude`. It makes the directory, writes the site, git-inits it, commits, drops an `.mcp.json` and your host's config, and prints the next thing you type.
+2. **Say one sentence** — *"Write me a first post and put it online."*
+3. **Click *allow* once** — your host's own login, in a tab it opens. The binary builds, uploads, reads your URL back from the host and sets it, then builds and uploads again now that the origin is real.
 :::
 
-::figure{src="/media/front-door.mp4" poster="/media/front-door-poster.png" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="One command, then the agent: a site, a post, a build. A real session, the waits folded." width="wide"}
+Three human actions, empty terminal to live page. The bench walks it and counts them against a budget of five; the row is on [the bench page](/bench/) with the rest.
+
+::figure{src="/media/front-door.mp4" poster="/media/front-door-poster.png" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="A real session, the waits folded — recorded in September, before `init` learned to make the directory and to put the post online. The two lines it types are one line now." width="wide"}
 
 ## What it kept from WordPress, and what it refused
 
@@ -66,4 +67,4 @@ The first is the wait before an agent's first turn. The second is what a page co
 
 Two things, in this order. A `migrate-from-wordpress` prompt, because leaving has to be possible for arriving to be, and a WXR export is the one format everyone has. And HTTP transport for the MCP server, so an agent that does not run on your machine can still be the interface. Neither blocks today; both are written down in the repo with the reasons.
 
-::cta{title="Four lines to a first post" body="`mkdir field-notes && cd field-notes` · `bunx @snypd/cli init` · `claude` · *Write me a first post.* The source, the spec and every benchmark are on [GitHub](https://github.com/snymrova/snypd)." button="Read the README" href="https://github.com/snymrova/snypd"}
+::cta{title="One line to a live site" body="`bunx @snypd/cli init my-site && cd my-site && claude`, then *Write me a first post and put it online.* The source, the spec and every benchmark are on [GitHub](https://github.com/snymrova/snypd)." button="Read the README" href="https://github.com/snymrova/snypd"}
