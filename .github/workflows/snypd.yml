@@ -7,10 +7,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: "22" }
+      # `@latest`, not a pin, and for the same reason the dashboard's build command is unpinned
+      # (decision 219): this is snypd's own site, checked by whatever snypd last shipped. A pin here
+      # checks the content against a launcher the host no longer runs — 0.1.2 predates the `log` type
+      # and the `kind` taxonomy (docs/20), so it called every /log/ and /kind/ link dead and this
+      # workflow had been red since 19 Sep while the live build was green.
       # Rules 0–11: a broken link, a moved URL with no redirect, a chart that will not render.
-      - run: npx -y @snypd/cli@0.1.2 lint
+      - run: npx -y @snypd/cli@latest lint
       # The build the host will run, run here first — a red PR instead of a red deploy.
-      - run: npx -y @snypd/cli@0.1.2 build
+      - run: npx -y @snypd/cli@latest build
       # Report-only: budgets are snypd's to enforce, not a content repo's to fail on.
-      - run: npx -y @snypd/cli@0.1.2 bench --quick
+      - run: npx -y @snypd/cli@latest bench --quick
         continue-on-error: true
