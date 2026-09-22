@@ -10,10 +10,9 @@ home: true
 You know how every CMS assumes a person at a screen, filling in fields? The person at the screen now has Claude Code, Cursor or Codex open, and it can write.
 
 ```
-$ mkdir field-notes && cd field-notes
-$ bunx @snypd/cli init
-$ claude
-❯ Write me a first post.
+$ bunx @snypd/cli init my-site && cd my-site && claude
+❯ Write me a first post and put it online.
+✓ https://my-site.<your-account>.workers.dev
 ```
 
 ::figure{src="/media/hero.mp4" poster="/media/hero-poster.webp" alt="The hero film, 45 seconds with sound: every CMS was built for a person at a dashboard; you have an agent now; one sentence in, a finished page out — a real post with charts, diagrams and sourced numbers, seven looks, a whole studio site as files in your repo, a lint refusal, a git log, and the install line" caption="Forty-five seconds, with sound. Every page in it is real."}
@@ -30,16 +29,17 @@ Sixty rows run on every push. Thirty-three of them are budgets, and a breach fai
 
 [Every number, with its row](/bench/)
 
-## How things will go. Four lines.
+## How things will go. One line.
 
-::figure{src="/media/front-door.mp4" poster="/media/front-door-done.webp" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="The four lines, run. A real session, unedited but for the waits."}
+::figure{src="/media/front-door.mp4" poster="/media/front-door-done.webp" alt="A terminal: one command scaffolds a site, Claude Code opens, a first post is written and built, and the page appears in a browser" caption="A real session, unedited but for the waits — recorded in September, before `init` learned to make the directory and to put the post online. The two lines it types are one line now, and the walk ends on a URL."}
 
 :::steps
-1. **A directory.** `mkdir field-notes && cd field-notes` — the site is named after it.
-2. **The scaffold.** `bunx @snypd/cli init` writes the config, the content folders and an `.mcp.json`, and commits them.
-3. **Your agent.** `claude`, or the directory open in Cursor or Codex. Anything that reads an `.mcp.json` is the interface.
-4. **One sentence.** *Write me a first post.* It writes on a drafts branch, builds, and shows you the page. You approve what lands.
+1. **One line.** `bunx @snypd/cli init my-site && cd my-site && claude` — it makes the directory, writes the config, the content folders, an `.mcp.json` and your host's half, commits all of it, and prints the next thing you type.
+2. **One sentence.** *Write me a first post and put it online.* Your agent reads the site, learns the vocabulary, writes the post on a drafts branch, builds it, and asks the host for a URL.
+3. **One click.** Your host opens its own login in a tab; you click *allow*, once per machine. Nothing else is typed — not the origin, not a build command, not a repository.
 :::
+
+Three human actions, from an empty terminal to a live page. That is measured, not estimated: the bench walks it and counts them, against a budget of five. [The row](/bench/)
 
 ## Everything a CMS has. As files.
 
@@ -64,13 +64,11 @@ Sixty rows run on every push. Thirty-three of them are budgets, and a breach fai
 
 [Everything the gate refused](/kind/refused/)
 
-## Four lines. First post.
+## One line. A live site.
 
 ```
-$ mkdir field-notes && cd field-notes
-$ bunx @snypd/cli init
-$ claude
-❯ Write me a first post.
+$ bunx @snypd/cli init my-site && cd my-site && claude
+❯ Write me a first post and put it online.
 ```
 
 ::cta{title="Open source, MIT." body="The source, the spec and every benchmark are on GitHub. Every page on this site was written through snypd's own MCP server." button="Install from npm" href="https://www.npmjs.com/package/@snypd/cli"}
